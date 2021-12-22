@@ -10,7 +10,8 @@ class Gameboard():
         self.board = [[] for i in range(self.field_size[0])]
         for i in range(self.field_size[1]):
             for j in range(self.field_size[0]):
-                self.board[i].append(str(self.positions[(i+1)*(j+1)] + ('|' if j!=self.field_size[0]-1 else '')))
+                pos = i*self.field_size[0] + j + 1
+                self.board[i].append(str(self.positions[pos]) + ('|' if j!=self.field_size[0]-1 else ''))
                 
         print('\n'.join([''.join(i) for i in self.board])) 
 
@@ -19,17 +20,11 @@ class Gameboard():
             # new_pos = (1,2)
             new_pos = player.draw() # (1,2) -> field 4; (2,3) -> field 8
             icon = player.icon
-            print(new_pos[0]+(new_pos[1]-1)*self.field_size[0])
-            self.positions[new_pos[0]*self.field_size[0]+(new_pos[1]-1)] = icon
-            print(self.positions)
+            pos = new_pos[0]+(new_pos[1]-1)*self.field_size[0]
+            self.positions[pos] = icon
             self.redraw()
             
 if __name__ == '__main__':
     g = Gameboard()
     g.redraw()
     g.new_draw()
-
-
-#  | |X
-# |||
-# |||
