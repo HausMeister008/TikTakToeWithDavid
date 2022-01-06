@@ -8,10 +8,10 @@ class Gameboard():
     
     def redraw(self):
         self.board = [[] for i in range(self.field_size[0])]
-        for i in range(self.field_size[1]):
-            for j in range(self.field_size[0]):
-                pos = i*self.field_size[0] + j + 1
-                self.board[i].append(str(self.positions[pos]) + ('|' if j!=self.field_size[0]-1 else ''))
+        for row in range(self.field_size[1]):
+            for column in range(self.field_size[0]):
+                pos = row*self.field_size[0] + column + 1
+                self.board[row].append(str(self.positions[pos]) + ('|' if column!=self.field_size[0]-1 else ''))
                 
         print('\n'.join([''.join(i) for i in self.board])) 
 
