@@ -1,0 +1,20 @@
+QWidget{
+background: #000;
+color: white;
+}
+QFrame{
+    background:#00161e;
+}
+QFrame#fr_player2 > QLabel#lb_player_2_headline, QFrame#fr_player1 > QLabel#lb_player_1_headline{
+    background: #00161e;
+    margin-top: 0;
+}
+QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
+    background: #11292f;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
+    background: #008888;
+}
