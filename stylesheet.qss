@@ -18,3 +18,6 @@ QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
     background: #008888;
 }
+QLineEdit{
+    background: yellow;
+}

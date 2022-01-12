@@ -1,8 +1,4 @@
 from math import sqrt, floor
-import speech_recognition  as sr
-from gtts import gTTS
-import pyttsx3 as p
-import playsound
 class Player():
     def __init__(self, p_name:str, chosen_icons:list=[]):
         self.name = self.get_input('Wie heißt du?\n>')
