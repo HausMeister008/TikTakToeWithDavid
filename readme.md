@@ -1,6 +1,6 @@
-#INFO PROJECT LEON DAVID
-#Objective:
-#Programm a certain game (you may choose it your self) and completely create a python script.
+INFO PROJECT LEON DAVID
+Objective:
+Programm a certain game (you may choose it your self) and completely create a python script.
 
 #__USAGE__
 #Run Gameboard.py in a terminal like Visual Studio Code with
