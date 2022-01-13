@@ -85,7 +85,7 @@ class Gameboard():
 
 def define_f_size():
     try:
-        return int(input('Wie groß soll das Feld sein?\n>'))
+        return int(input('What size shall the field be?\n>'))
     except ValueError:
         define_f_size()
 
@@ -97,3 +97,5 @@ if __name__ == '__main__':
     while g.playing:
         g.new_draw()
         
+#Ideas to extend/change
+#once a player has won the previous game, he may choose to overwrite one spot in the following game

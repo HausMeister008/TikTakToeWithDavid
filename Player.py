@@ -1,7 +1,7 @@
 from math import sqrt, floor
 class Player():
     def __init__(self, p_name:str, chosen_icons:list=[]):
-        self.name = self.get_input('Wie heißt du?\n>')
+        self.name = self.get_input('What is your name?\n>')
         self.bet_value = 0
         self.budget = 0
         self.icon = self.choose_icon(chosen_icons)
@@ -61,50 +61,46 @@ class Player():
 
 
 class TTSSTTPlayer(Player):
-    def __init__(self, p_name:str, chosen_icons:list=[]):
-        super().__init__(p_name, chosen_icons)
+    pass
+#     def __init__(self, p_name:str, chosen_icons:list=[]):
+#         super().__init__(p_name, chosen_icons)
 
-    def talkToMe(self, output):
-            # engine = p.init("sapi5")  # engine wird eine Instanz von pyttsx3
-            # voices = engine.getProperty("voices")  # Systemstimmen werden geholt
-            # self.language = 'de'
-            # v = 2
-            # engine.setProperty(
-            #     "voice", 'Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_deDE_StefanM'
-            # )  # Stimme wird ausgewählt (0->deutsche frau, 1->englische Frau)
-            # engine.setProperty("rate", 175)  # Sprechgeschwindigkeit
-            # engine.say(str(output))  # Was gesagt werden soll
-            # engine.runAndWait()  # tatsächliches Sprechen des Audios
-            tts = gTTS(output, lang="de", )
-            tts.save('./output.mp3')
-            playsound.playsound('./output.mp3')
-
-    def get_input(self, prompt):
-        r = sr.Recognizer()
-        with sr.Microphone() as source:                                                                 
-            self.talkToMe(prompt)
-            r.pause_threshold = 2
-            r.adjust_for_ambient_noise(
-                source, duration=0.5
-            )
-            audio = r.listen(source)
-        try: 
-            transcript = r.recognize_google(audio, language="de-DE")
-            print(f"You said: {transcript}")
-        except sr.UnknownValueError:
-            print("Could not understand audio")
-            self.get_input(prompt)
-        except sr.RequestError as e:
-            print("Could not request results; {0}".format(e))
-            self.get_input(prompt)
+#     # def talkToMe(self, output):
+#     #         # engine = p.init("sapi5")  # engine wird eine Instanz von pyttsx3
+#     #         # voices = engine.getProperty("voices")  # Systemstimmen werden geholt
+#     #         # self.language = 'de'
+#     #         # v = 2
+#     #         # engine.setProperty(
+#     #         #     "voice", 'Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_deDE_StefanM'
+#     #         # )  # Stimme wird ausgewählt (0->deutsche frau, 1->englische Frau)
+#     #         # engine.setProperty("rate", 175)  # Sprechgeschwindigkeit
+#     #         # engine.say(str(output))  # Was gesagt werden soll
+#     #         # engine.runAndWait()  # tatsächliches Sprechen des Audios
+#             tts = gTTS(output, lang="de", )
+#             tts.save('./output.mp3')
+#             playsound.playsound('./output.mp3')
+#         pass
+    
+#     def get_input(self, prompt):
+#         r = sr.Recognizer()
+#         with sr.Microphone() as source:                                                                 
+#             self.talkToMe(prompt)
+#             r.pause_threshold = 2
+#             r.adjust_for_ambient_noise(
+#                 source, duration=0.5
+#             )
+#             audio = r.listen(source)
+#         try: 
+#             transcript = r.recognize_google(audio, language="de-DE")
+#             print(f"You said: {transcript}")
+#         except sr.UnknownValueError:
+#             print("Could not understand audio")
+#             self.get_input(prompt)
+#         except sr.RequestError as e:
+#             print("Could not request results; {0}".format(e))
+#             self.get_input(prompt)
 # board = [[' |', ' |', ' '], [' |', ' |', ' '], [' |', ' |', ' ']]
 # positions = {1:' ', 2:'X', 3:' '}
-if __name__ == '__main__':
-    s1 = Player('Alice')
-    print(s1.set_budget())
-    print(s1.bet())
-    print(s1.draw())
-    print(s1.won())
     
 #  1 2 3
 # 1[][][]
