@@ -12,6 +12,9 @@ class Frm_main(QMainWindow, Ui_MainWindow):
     def create_new_player(self):
         frm_addPlayer.show()
         
+    def exit_new_player(self):
+        frm_addPlayer.hide()
+        
 class Frm_PlayerWindow(QMainWindow, Ui_Form):
     def __init__(self):
         super().__init__()
