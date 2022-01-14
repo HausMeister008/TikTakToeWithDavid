@@ -1,5 +1,5 @@
 QWidget{
-background: #000;
+background: #00161e;
 color: white;
 }
 QFrame{
@@ -13,11 +13,18 @@ QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
     background: #11292f;
     margin-top: 10px;
     margin-right: 10px;
+    border: 2px solid #000;
     border-radius: 5px;
+}
+QLabel{
+    background: #008888;
 }
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
     background: #008888;
 }
+
 QLineEdit{
-    background: #56fc03;
+    background: #00161e;
+    border: 2px solid #000;
+    border-radius: 5px;
 }

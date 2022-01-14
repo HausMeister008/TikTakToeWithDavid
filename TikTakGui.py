@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6 import QtSql
-from frm_main import Ui_MainWindow
+from ui_mainWindow import Ui_MainWindow
 from ui_PlayerWindow import Ui_Form
 
 class Frm_main(QMainWindow, Ui_MainWindow):
@@ -10,6 +10,7 @@ class Frm_main(QMainWindow, Ui_MainWindow):
         # self.btn_ReloadQss.clicked.connect(load)
     
     def create_new_player(self):
+        load()
         frm_addPlayer.show()
         
     def exit_new_player(self):
@@ -19,6 +20,7 @@ class Frm_PlayerWindow(QMainWindow, Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        # load()
         # self.btn_ReloadQss.clicked.connect(load)
       
 def load():
