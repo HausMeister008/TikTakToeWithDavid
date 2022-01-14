@@ -10,11 +10,8 @@ class Frm_main(QMainWindow, Ui_MainWindow):
         # self.btn_ReloadQss.clicked.connect(load)
     
     def create_new_player(self):
-        load()
         frm_addPlayer.show()
         
-    def exit_new_player(self):
-        frm_addPlayer.hide()
         
 class Frm_PlayerWindow(QMainWindow, Ui_Form):
     def __init__(self):
@@ -22,10 +19,16 @@ class Frm_PlayerWindow(QMainWindow, Ui_Form):
         self.setupUi(self)
         # load()
         # self.btn_ReloadQss.clicked.connect(load)
-      
+    
+    def exit_new_player(self):
+        frm_addPlayer.hide()
+    
+    def player_commit(self):
+        pass
+    
 def load():
-    frm_main.setStyleSheet(open('./stylesheet.qss', encoding="utf-8").read())
-    frm_addPlayer.setStyleSheet(open('./stylesheet.qss', encoding="utf-8").read())
+    frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+    frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
     
 
 app = QApplication()

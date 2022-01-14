@@ -6,9 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>450</height>
+    <width>350</width>
+    <height>350</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>350</width>
+    <height>350</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Calibri</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -24,13 +35,39 @@
     </sizepolicy>
    </property>
    <property name="font">
-    <font/>
+    <font>
+     <family>Calibri</family>
+    </font>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
       <item>
-       <widget class="QLineEdit" name="Player_Name_Edit">
+       <widget class="QLineEdit" name="lnedit_playerName">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
@@ -58,7 +95,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="Icon_edit">
+       <widget class="QLineEdit" name="lnedit_icon">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
@@ -86,7 +123,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="Budget_edit">
+       <widget class="QLineEdit" name="lnedit_budget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
@@ -129,7 +166,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btn_exitNewPlayer">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -147,6 +184,9 @@
              <width>16777215</width>
              <height>60</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>EXIT</string>
@@ -154,7 +194,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btn_commitNewPlayer">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -172,6 +212,9 @@
              <width>16777215</width>
              <height>60</height>
             </size>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string>COMMIT</string>
@@ -192,10 +235,44 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_exitNewPlayer</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>exit_new_player()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>111</x>
+     <y>502</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_commitNewPlayer</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>player_commit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>264</x>
+     <y>305</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>294</x>
+     <y>423</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>c()</slot>
   <slot>create_new_player()</slot>
   <slot>exit_new_player()</slot>
+  <slot>player_commit()</slot>
  </slots>
 </ui>
