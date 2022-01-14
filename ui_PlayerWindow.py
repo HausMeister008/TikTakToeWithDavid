@@ -11,60 +11,71 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLineEdit,
-    QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
+    QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(684, 763)
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        Form.resize(634, 536)
+        Form.setStyleSheet(u"")
+        self.actionQuit = QAction(Form)
+        self.actionQuit.setObjectName(u"actionQuit")
+        self.centralwidget = QWidget(Form)
+        self.centralwidget.setObjectName(u"centralwidget")
+        sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(Form.sizePolicy().hasHeightForWidth())
-        Form.setSizePolicy(sizePolicy)
-        self.gridLayout = QGridLayout(Form)
+        sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
+        self.centralwidget.setSizePolicy(sizePolicy)
+        font = QFont()
+        self.centralwidget.setFont(font)
+        self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.widget = QWidget(Form)
-        self.widget.setObjectName(u"widget")
-        self.gridLayout_2 = QGridLayout(self.widget)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.lineEdit_2 = QLineEdit(self.widget)
+        self.lineEdit_2 = QLineEdit(self.centralwidget)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
-        sizePolicy.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
-        self.lineEdit_2.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
+        self.lineEdit_2.setSizePolicy(sizePolicy1)
+        self.lineEdit_2.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.lineEdit_2)
 
-        self.lineEdit_3 = QLineEdit(self.widget)
+        self.lineEdit_3 = QLineEdit(self.centralwidget)
         self.lineEdit_3.setObjectName(u"lineEdit_3")
-        sizePolicy.setHeightForWidth(self.lineEdit_3.sizePolicy().hasHeightForWidth())
-        self.lineEdit_3.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.lineEdit_3.sizePolicy().hasHeightForWidth())
+        self.lineEdit_3.setSizePolicy(sizePolicy1)
+        self.lineEdit_3.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.lineEdit_3)
 
-        self.lineEdit = QLineEdit(self.widget)
+        self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        self.lineEdit.setSizePolicy(sizePolicy1)
+        self.lineEdit.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.lineEdit)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pushButton_2 = QPushButton(self.widget)
+        self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
 
         self.horizontalLayout.addWidget(self.pushButton_2)
 
-        self.pushButton = QPushButton(self.widget)
+        self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
 
         self.horizontalLayout.addWidget(self.pushButton)
@@ -73,11 +84,9 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
 
-        self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
 
-
-        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
-
+        Form.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Form)
 
@@ -85,11 +94,12 @@ class Ui_Form(object):
     # setupUi
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.lineEdit_2.setText(QCoreApplication.translate("Form", u"Gib deinen Namen hier ein.", None))
-        self.lineEdit_3.setText(QCoreApplication.translate("Form", u"Gib dein Startguthaben hier ein.", None))
-        self.lineEdit.setText(QCoreApplication.translate("Form", u"Gib dein Ziechen, mit dem du spielen willst, hier ein", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Form", u"PushButton", None))
-        self.pushButton.setText(QCoreApplication.translate("Form", u"PushButton", None))
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"MainWindow", None))
+        self.actionQuit.setText(QCoreApplication.translate("Form", u"Quit", None))
+        self.lineEdit_2.setText(QCoreApplication.translate("Form", u"Player Name", None))
+        self.lineEdit_3.setText(QCoreApplication.translate("Form", u"Icon", None))
+        self.lineEdit.setText(QCoreApplication.translate("Form", u"Budget", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Form", u"exit", None))
+        self.pushButton.setText(QCoreApplication.translate("Form", u"commit", None))
     # retranslateUi
 
