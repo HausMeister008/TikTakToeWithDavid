@@ -152,6 +152,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.frame)
 
+        self.lb_outputField = QLabel(self.fr_mainContent)
+        self.lb_outputField.setObjectName(u"lb_outputField")
+        sizePolicy.setHeightForWidth(self.lb_outputField.sizePolicy().hasHeightForWidth())
+        self.lb_outputField.setSizePolicy(sizePolicy)
+        self.lb_outputField.setMinimumSize(QSize(0, 40))
+        self.lb_outputField.setMaximumSize(QSize(16777215, 60))
+        self.lb_outputField.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_3.addWidget(self.lb_outputField)
+
 
         self.horizontalLayout.addWidget(self.fr_mainContent)
 
@@ -228,8 +238,6 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.btn_Create_Player_1.clicked.connect(MainWindow.create_new_player)
-        self.btn_Create_Player_2.clicked.connect(MainWindow.create_new_player)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -244,6 +252,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Zeichen: ", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
+        self.lb_outputField.setText("")
         self.lb_player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"Guthaben: ", None))

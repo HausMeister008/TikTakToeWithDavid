@@ -12,6 +12,9 @@ class Gameboard():
         
         self.positions = {i+1:' ' for i in range(self.field_size**2)}
         self.playing = True
+    
+    def output(self, prompt):
+        print(prompt)
         
     def redraw(self):
         self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]
@@ -20,7 +23,7 @@ class Gameboard():
                 pos = row*self.field_size + column + 1
                 self.board[row].append(str(self.positions[pos]) + ('|' if column!=self.field_size-1 else ''))
         self.board.append([string.ascii_uppercase[i] +( '|' if i!=self.field_size-1 else f'') for i in range(self.field_size)])
-        print('\n'.join([''.join(i) for i in self.board])) 
+        self.output('\n'.join([''.join(i) for i in self.board])) 
 
     def new_draw(self):
         for player in self.players:
@@ -36,7 +39,7 @@ class Gameboard():
     def check_sym_num(self, sym_num, player)->bool:
         if sym_num == self.field_size:
             player.won()
-            print(f"{player.name} has won!!!")
+            self.output(f"{player.name} has won!!!")
             self.playing = False
         return sym_num == self.field_size
     
