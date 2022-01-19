@@ -18,13 +18,13 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLayout, QMainWindow, QPushButton,
-    QSizePolicy, QVBoxLayout, QWidget)
+    QSizePolicy, QSlider, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(900, 600)
+        MainWindow.resize(924, 578)
         MainWindow.setMinimumSize(QSize(800, 500))
         MainWindow.setStyleSheet(u"")
         self.actionQuit = QAction(MainWindow)
@@ -98,6 +98,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.label_6)
 
+        self.horizontalSlider = QSlider(self.fr_player1)
+        self.horizontalSlider.setObjectName(u"horizontalSlider")
+        self.horizontalSlider.setOrientation(Qt.Horizontal)
+
+        self.verticalLayout_2.addWidget(self.horizontalSlider)
+
         self.label_3 = QLabel(self.fr_player1)
         self.label_3.setObjectName(u"label_3")
         sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
@@ -151,6 +157,16 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
 
         self.verticalLayout_3.addWidget(self.frame)
+
+        self.btn_qss_reload = QPushButton(self.fr_mainContent)
+        self.btn_qss_reload.setObjectName(u"btn_qss_reload")
+
+        self.verticalLayout_3.addWidget(self.btn_qss_reload)
+
+        self.btn_qss_reload_weird = QPushButton(self.fr_mainContent)
+        self.btn_qss_reload_weird.setObjectName(u"btn_qss_reload_weird")
+
+        self.verticalLayout_3.addWidget(self.btn_qss_reload_weird)
 
         self.lb_outputField = QLabel(self.fr_mainContent)
         self.lb_outputField.setObjectName(u"lb_outputField")
@@ -209,6 +225,12 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label_7)
 
+        self.horizontalSlider_2 = QSlider(self.fr_player2)
+        self.horizontalSlider_2.setObjectName(u"horizontalSlider_2")
+        self.horizontalSlider_2.setOrientation(Qt.Horizontal)
+
+        self.verticalLayout.addWidget(self.horizontalSlider_2)
+
         self.label = QLabel(self.fr_player2)
         self.label.setObjectName(u"label")
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
@@ -238,6 +260,8 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.btn_Create_Player_1.clicked.connect(MainWindow.create_new_player)
+        self.btn_Create_Player_2.clicked.connect(MainWindow.create_new_player)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -252,6 +276,8 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Zeichen: ", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
+        self.btn_qss_reload.setText(QCoreApplication.translate("MainWindow", u"Reload, qss", None))
+        self.btn_qss_reload_weird.setText(QCoreApplication.translate("MainWindow", u"Reload, weird", None))
         self.lb_outputField.setText("")
         self.lb_player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))

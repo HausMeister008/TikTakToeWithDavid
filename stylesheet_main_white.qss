@@ -1,48 +1,50 @@
 QWidget{
-background: #00161e;
-color: white;
+background: #00ff00;
+color: #000;
 }
 QFrame{
-    background:#00161e;
+    background:#eee;
 }
 QFrame#fr_player2 > QLabel#lb_player_2_headline, QFrame#fr_player1 > QLabel#lb_player_1_headline{
-    background: #00161e;
+    background: #333;
     margin-top: 0;
 }
 QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
-    background: #11292f;
+    background: #333;
     margin-top: 10px;
     margin-right: 10px;
-    border: 2px solid #000;
+    border: 2px solid #fce;
     border-radius: 5px;
 }
-QLabel{
-    background: #00161e;
+QLabel#lb_mainHeadline{
+    color: Red;
 }
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
-    background: #008888;
+    background: #333;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 
 QLineEdit{
-    background: #00161e;
+    background: #000;
     border: 2px solid #000;
     border-radius: 5px;
 }
 
 QPushButton{
     border-radius: 5px;
-    background: #004444;
+    background: #00ffff;
 }
 QPushButton:hover{
-    background: #005555;
+    background: #0045ff;
 }
 
 QSlider{
     color: yellow;
 }
 QSlider::handle:horizontal{
-    background: white;
+    background: black;
     
     margin-right: -10px;
     margin-left: -10px;
@@ -52,5 +54,4 @@ QSlider::sub-page:horizontal{
 }
 QSlider::groove:horizontal{
     background: orange;
-    height: 23px;
 }
