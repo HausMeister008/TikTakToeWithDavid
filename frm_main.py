@@ -158,15 +158,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.frame)
 
+        self.pushButton = QPushButton(self.fr_mainContent)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.verticalLayout_3.addWidget(self.pushButton)
+
         self.btn_qss_reload = QPushButton(self.fr_mainContent)
         self.btn_qss_reload.setObjectName(u"btn_qss_reload")
 
         self.verticalLayout_3.addWidget(self.btn_qss_reload)
-
-        self.btn_qss_reload_weird = QPushButton(self.fr_mainContent)
-        self.btn_qss_reload_weird.setObjectName(u"btn_qss_reload_weird")
-
-        self.verticalLayout_3.addWidget(self.btn_qss_reload_weird)
 
         self.lb_outputField = QLabel(self.fr_mainContent)
         self.lb_outputField.setObjectName(u"lb_outputField")
@@ -276,8 +276,8 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Zeichen: ", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Whitemode", None))
         self.btn_qss_reload.setText(QCoreApplication.translate("MainWindow", u"darkmode", None))
-        self.btn_qss_reload_weird.setText(QCoreApplication.translate("MainWindow", u"whitemode", None))
         self.lb_outputField.setText("")
         self.lb_player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))

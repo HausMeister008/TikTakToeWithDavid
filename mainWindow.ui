@@ -333,14 +333,14 @@
          <item>
           <widget class="QPushButton" name="btn_qss_reload">
            <property name="text">
-            <string>Reload, qss</string>
+            <string>darkmode</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="btn_qss_reload_weird">
            <property name="text">
-            <string>Reload, weird</string>
+            <string>whitemode</string>
            </property>
           </widget>
          </item>

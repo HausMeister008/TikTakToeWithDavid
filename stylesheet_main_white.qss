@@ -1,23 +1,27 @@
+QLabel{
+    font-size: 20px;
+    font: calibri;
+}
 QWidget{
 background: #00ff00;
-color: #000;
+color: #fff;
 }
 QFrame{
     background:#eee;
 }
 QFrame#fr_player2 > QLabel#lb_player_2_headline, QFrame#fr_player1 > QLabel#lb_player_1_headline{
-    background: #333;
+    background: #444444;
     margin-top: 0;
 }
 QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
-    background: #333;
+    background: #000;
     margin-top: 10px;
     margin-right: 10px;
     border: 2px solid #fce;
     border-radius: 5px;
 }
 QLabel#lb_mainHeadline{
-    color: Red;
+    color: Black;
 }
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
     background: #333;
@@ -33,8 +37,10 @@ QLineEdit{
 }
 
 QPushButton{
+    font-size: 23px;
+    font: calibri;
     border-radius: 5px;
-    background: #00ffff;
+    background: #00bbbb;
 }
 QPushButton:hover{
     background: #0045ff;
@@ -54,4 +60,12 @@ QSlider::sub-page:horizontal{
 }
 QSlider::groove:horizontal{
     background: orange;
+}
+/* QPushButton#btn_qss_reload_weird{
+    background: #eee;
+    color: #eee;
+} */
+QSlider::handle:hover{
+    background: lime;
+    height: 23px;
 }

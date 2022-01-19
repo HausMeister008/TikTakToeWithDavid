@@ -17,9 +17,7 @@
    </size>
   </property>
   <property name="font">
-   <font>
-    <family>Calibri</family>
-   </font>
+   <font/>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -35,9 +33,7 @@
     </sizepolicy>
    </property>
    <property name="font">
-    <font>
-     <family>Calibri</family>
-    </font>
+    <font/>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
