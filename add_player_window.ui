@@ -63,6 +63,16 @@
        <number>9</number>
       </property>
       <item>
+       <widget class="QLabel" name="lb_Player_Number">
+        <property name="text">
+         <string>Player 1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLineEdit" name="lnedit_playerName">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -139,7 +149,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Budget</string>
+         <string>Guthaben:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -248,27 +258,12 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>btn_commitNewPlayer</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>player_commit()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>264</x>
-     <y>305</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>294</x>
-     <y>423</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>c()</slot>
   <slot>create_new_player()</slot>
   <slot>exit_new_player()</slot>
   <slot>player_commit()</slot>
+  <slot>set_ID()</slot>
  </slots>
 </ui>

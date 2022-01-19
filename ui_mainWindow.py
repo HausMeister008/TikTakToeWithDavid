@@ -73,15 +73,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.label_5)
 
-        self.label_4 = QLabel(self.fr_player1)
-        self.label_4.setObjectName(u"label_4")
-        sizePolicy1.setHeightForWidth(self.label_4.sizePolicy().hasHeightForWidth())
-        self.label_4.setSizePolicy(sizePolicy1)
-        self.label_4.setMinimumSize(QSize(0, 40))
-        self.label_4.setMaximumSize(QSize(16777215, 60))
-        self.label_4.setAlignment(Qt.AlignCenter)
+        self.lb_Player1_budget = QLabel(self.fr_player1)
+        self.lb_Player1_budget.setObjectName(u"lb_Player1_budget")
+        sizePolicy1.setHeightForWidth(self.lb_Player1_budget.sizePolicy().hasHeightForWidth())
+        self.lb_Player1_budget.setSizePolicy(sizePolicy1)
+        self.lb_Player1_budget.setMinimumSize(QSize(0, 40))
+        self.lb_Player1_budget.setMaximumSize(QSize(16777215, 60))
+        self.lb_Player1_budget.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.label_4)
+        self.verticalLayout_2.addWidget(self.lb_Player1_budget)
 
         self.label_6 = QLabel(self.fr_player1)
         self.label_6.setObjectName(u"label_6")
@@ -205,15 +205,15 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label_9)
 
-        self.label_8 = QLabel(self.fr_player2)
-        self.label_8.setObjectName(u"label_8")
-        sizePolicy.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
-        self.label_8.setSizePolicy(sizePolicy)
-        self.label_8.setMinimumSize(QSize(0, 40))
-        self.label_8.setMaximumSize(QSize(16777215, 60))
-        self.label_8.setAlignment(Qt.AlignCenter)
+        self.lb_Player2_budget = QLabel(self.fr_player2)
+        self.lb_Player2_budget.setObjectName(u"lb_Player2_budget")
+        sizePolicy.setHeightForWidth(self.lb_Player2_budget.sizePolicy().hasHeightForWidth())
+        self.lb_Player2_budget.setSizePolicy(sizePolicy)
+        self.lb_Player2_budget.setMinimumSize(QSize(0, 40))
+        self.lb_Player2_budget.setMaximumSize(QSize(16777215, 60))
+        self.lb_Player2_budget.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.label_8)
+        self.verticalLayout.addWidget(self.lb_Player2_budget)
 
         self.label_7 = QLabel(self.fr_player2)
         self.label_7.setObjectName(u"label_7")
@@ -258,10 +258,13 @@ class Ui_MainWindow(object):
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        QWidget.setTabOrder(self.horizontalSlider, self.horizontalSlider_2)
+        QWidget.setTabOrder(self.horizontalSlider_2, self.btn_Create_Player_1)
+        QWidget.setTabOrder(self.btn_Create_Player_1, self.btn_Create_Player_2)
+        QWidget.setTabOrder(self.btn_Create_Player_2, self.btn_qss_reload)
+        QWidget.setTabOrder(self.btn_qss_reload, self.btn_qss_reload_weird)
 
         self.retranslateUi(MainWindow)
-        self.btn_Create_Player_1.clicked.connect(MainWindow.create_new_player)
-        self.btn_Create_Player_2.clicked.connect(MainWindow.create_new_player)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -271,7 +274,7 @@ class Ui_MainWindow(object):
         self.actionQuit.setText(QCoreApplication.translate("MainWindow", u"Quit", None))
         self.lb_player_1_headline.setText(QCoreApplication.translate("MainWindow", u"Player 1", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Guthaben: ", None))
+        self.lb_Player1_budget.setText(QCoreApplication.translate("MainWindow", u"Guthaben: ", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Einsatz: ", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Zeichen: ", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
@@ -281,7 +284,7 @@ class Ui_MainWindow(object):
         self.lb_outputField.setText("")
         self.lb_player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Guthaben: ", None))
+        self.lb_Player2_budget.setText(QCoreApplication.translate("MainWindow", u"Guthaben: ", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Einsatz: ", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Zeichen: ", None))
         self.btn_Create_Player_2.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))

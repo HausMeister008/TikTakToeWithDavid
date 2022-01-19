@@ -16,9 +16,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QLineEdit, QMainWindow, QPushButton, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -27,7 +27,6 @@ class Ui_Form(object):
         Form.resize(350, 350)
         Form.setMinimumSize(QSize(350, 350))
         font = QFont()
-        font.setFamilies([u"Calibri"])
         Form.setFont(font)
         Form.setStyleSheet(u"")
         self.actionQuit = QAction(Form)
@@ -46,6 +45,12 @@ class Ui_Form(object):
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(9, 9, 9, 9)
+        self.lb_Player_Number = QLabel(self.centralwidget)
+        self.lb_Player_Number.setObjectName(u"lb_Player_Number")
+        self.lb_Player_Number.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout.addWidget(self.lb_Player_Number)
+
         self.lnedit_playerName = QLineEdit(self.centralwidget)
         self.lnedit_playerName.setObjectName(u"lnedit_playerName")
         sizePolicy.setHeightForWidth(self.lnedit_playerName.sizePolicy().hasHeightForWidth())
@@ -115,7 +120,6 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.btn_exitNewPlayer.clicked.connect(Form.exit_new_player)
-        self.btn_commitNewPlayer.clicked.connect(Form.player_commit)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
@@ -123,9 +127,10 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"MainWindow", None))
         self.actionQuit.setText(QCoreApplication.translate("Form", u"Quit", None))
+        self.lb_Player_Number.setText(QCoreApplication.translate("Form", u"Player 1", None))
         self.lnedit_playerName.setText(QCoreApplication.translate("Form", u"Player Name", None))
         self.lnedit_icon.setText(QCoreApplication.translate("Form", u"Icon", None))
-        self.lnedit_budget.setText(QCoreApplication.translate("Form", u"Budget", None))
+        self.lnedit_budget.setText(QCoreApplication.translate("Form", u"Guthaben:", None))
         self.btn_exitNewPlayer.setText(QCoreApplication.translate("Form", u"EXIT", None))
         self.btn_commitNewPlayer.setText(QCoreApplication.translate("Form", u"COMMIT", None))
     # retranslateUi
