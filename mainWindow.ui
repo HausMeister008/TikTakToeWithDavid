@@ -75,7 +75,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="lb_player_1_headline">
+          <widget class="QLabel" name="lb_Player_1_headline">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -97,7 +97,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="lb_Player1_name">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -145,7 +145,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Guthaben: </string>
+            <string>Budget:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -153,7 +153,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="lb_Player1_bet_value">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -188,14 +188,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider">
+          <widget class="QSlider" name="sl_player1">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="lb_Player1_icon">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -215,7 +215,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Zeichen: </string>
+            <string>Icon:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -397,7 +397,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="lb_player_2_headline">
+          <widget class="QLabel" name="lb_Player_2_headline">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -419,7 +419,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="lb_Player2_name">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -467,7 +467,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Guthaben: </string>
+            <string>Budget:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -475,7 +475,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="lb_Player2_bet_value">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -503,14 +503,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="horizontalSlider_2">
+          <widget class="QSlider" name="sl_player2">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="lb_Player2_icon">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -530,7 +530,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Zeichen: </string>
+            <string>Icon:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -579,8 +579,8 @@
   </action>
  </widget>
  <tabstops>
-  <tabstop>horizontalSlider</tabstop>
-  <tabstop>horizontalSlider_2</tabstop>
+  <tabstop>sl_player1</tabstop>
+  <tabstop>sl_player2</tabstop>
   <tabstop>btn_Create_Player_1</tabstop>
   <tabstop>btn_Create_Player_2</tabstop>
   <tabstop>btn_qss_reload</tabstop>

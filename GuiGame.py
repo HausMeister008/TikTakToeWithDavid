@@ -43,7 +43,7 @@ if __name__ == "__main__":
     app = QApplication()
     mainWindow = MainWindow()
     
-    addPlayerWindow = PlayerWindow()
+    addPlayerWindow = AddPlayerWindow()
     mainWindow.btn_Create_Player_1.clicked.connect(
         mainWindow.create_new_player(window=addPlayerWindow)
         )
