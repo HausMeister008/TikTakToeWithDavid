@@ -17,14 +17,15 @@ QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
     background: #000;
     margin-top: 10px;
     margin-right: 10px;
-    border: 2px solid #fce;
+    border: 3px solid rgba(255, 128, 0, 0.1);
     border-radius: 5px;
 }
 QLabel#lb_mainHeadline{
     color: Black;
 }
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
-    background: #333;
+    background: rgba(40,40,40,0.9);
+    color: red;
     margin-bottom: 0;
     margin-top: 0;
 }
@@ -40,23 +41,23 @@ QPushButton{
     font-size: 23px;
     font: calibri;
     border-radius: 5px;
-    background: #00bbbb;
+    background: #006000;
 }
 QPushButton:hover{
-    background: #0045ff;
+    background: #004c00;
 }
 
 QSlider{
     color: yellow;
 }
 QSlider::handle:horizontal{
-    background: black;
+    background: gray;
     
     margin-right: -10px;
     margin-left: -10px;
 }
 QSlider::sub-page:horizontal{
-    background: rgb(255, 0, 0);
+    background: rgb(230, 90, 0);
 }
 QSlider::groove:horizontal{
     background: orange;
@@ -66,6 +67,9 @@ QSlider::groove:horizontal{
     color: #eee;
 } */
 QSlider::handle:hover{
-    background: lime;
+    background: darkblue;
     height: 23px;
+}
+QLabel#lb_outputField{
+    color: black;
 }

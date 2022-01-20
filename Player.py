@@ -29,7 +29,6 @@ class Player():
             self.icon = self.get_input('Choose your icon and you shall stick with it for ever: \n>')
             if self.icon in chosen_icons or len(self.icon)>1:
                 self.create_player(chosen_icons, faulty=["icon"])
-        ##
         if('bet' in faulty):
             self.bet_value = self.get_input('place bet: ')
             try:

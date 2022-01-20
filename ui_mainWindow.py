@@ -158,15 +158,20 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.frame)
 
+        self.qss_change = QHBoxLayout()
+        self.qss_change.setObjectName(u"qss_change")
+        self.btn_qss_toggle = QPushButton(self.fr_mainContent)
+        self.btn_qss_toggle.setObjectName(u"btn_qss_toggle")
+
+        self.qss_change.addWidget(self.btn_qss_toggle)
+
         self.btn_qss_reload = QPushButton(self.fr_mainContent)
         self.btn_qss_reload.setObjectName(u"btn_qss_reload")
 
-        self.verticalLayout_3.addWidget(self.btn_qss_reload)
+        self.qss_change.addWidget(self.btn_qss_reload)
 
-        self.btn_qss_reload_weird = QPushButton(self.fr_mainContent)
-        self.btn_qss_reload_weird.setObjectName(u"btn_qss_reload_weird")
 
-        self.verticalLayout_3.addWidget(self.btn_qss_reload_weird)
+        self.verticalLayout_3.addLayout(self.qss_change)
 
         self.lb_outputField = QLabel(self.fr_mainContent)
         self.lb_outputField.setObjectName(u"lb_outputField")
@@ -261,8 +266,6 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.sl_player1, self.sl_player2)
         QWidget.setTabOrder(self.sl_player2, self.btn_Create_Player_1)
         QWidget.setTabOrder(self.btn_Create_Player_1, self.btn_Create_Player_2)
-        QWidget.setTabOrder(self.btn_Create_Player_2, self.btn_qss_reload)
-        QWidget.setTabOrder(self.btn_qss_reload, self.btn_qss_reload_weird)
 
         self.retranslateUi(MainWindow)
 
@@ -279,8 +282,8 @@ class Ui_MainWindow(object):
         self.lb_Player1_icon.setText(QCoreApplication.translate("MainWindow", u"Icon:", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
-        self.btn_qss_reload.setText(QCoreApplication.translate("MainWindow", u"darkmode", None))
-        self.btn_qss_reload_weird.setText(QCoreApplication.translate("MainWindow", u"whitemode", None))
+        self.btn_qss_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle Mode", None))
+        self.btn_qss_reload.setText(QCoreApplication.translate("MainWindow", u"Reload QSS", None))
         self.lb_outputField.setText("")
         self.lb_Player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.lb_Player2_name.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))

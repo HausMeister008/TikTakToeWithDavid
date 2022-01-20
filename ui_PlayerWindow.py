@@ -54,6 +54,7 @@ class Ui_Form(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.label_3 = QLabel(self.frame_2)
         self.label_3.setObjectName(u"label_3")
+        self.label_3.setMinimumSize(QSize(100, 0))
 
         self.horizontalLayout_3.addWidget(self.label_3)
 
@@ -78,6 +79,7 @@ class Ui_Form(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.label_2 = QLabel(self.frame_3)
         self.label_2.setObjectName(u"label_2")
+        self.label_2.setMinimumSize(QSize(100, 0))
 
         self.horizontalLayout_4.addWidget(self.label_2)
 
@@ -108,6 +110,7 @@ class Ui_Form(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
+        self.label.setMinimumSize(QSize(100, 0))
 
         self.horizontalLayout_2.addWidget(self.label)
 

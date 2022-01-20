@@ -15,19 +15,20 @@ class Player:
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.toggle = 0
         self.setupUi(self)
-        self.ID = 0
+        self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
-        self.btn_qss_reload.clicked.connect(load_dark_mode)
-        self.btn_qss_reload_weird.clicked.connect(load_white_mode)
-        
+        self.btn_qss_reload.clicked.connect(self.reload_style_sheets)
         self.playerlist = [None, None]
 
         self.btn_Create_Player_1.clicked.connect(self.ID1)
         self.btn_Create_Player_2.clicked.connect(self.ID2)
+        self.btn_qss_toggle.clicked.connect(self.toggle_stylesheet)
         self.sl_player1.valueChanged.connect(self.sl_val_change)
         self.sl_player1.setMinimum(0)
         self.set_player(1,randint(100, 10000), 'David', 'X')
+        self.set_player(2,randint(1, 200), "Leon", "O")
 
 #lb_outputField
 
@@ -39,6 +40,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def ID2(self):
         self.create_new_player(2)        
+      
+    def reload_style_sheets(self):
+        if self.toggle == 1:
+            frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
+            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
+        else:
+            frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())  
+      
+    def toggle_stylesheet(self):
+        if self.toggle == 0:
+            frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
+            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
+            self.toggle = 1
+            self.btn_qss_toggle.setText("Darkmode")
+        else:
+            frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+            self.toggle = 0
+            self.btn_qss_toggle.setText("Whitemode")
+            
 
     def create_new_player(self, ID:int):
         frm_addPlayer.reset_values()
@@ -51,6 +73,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             eval(f"self.lb_Player{playerid}_name.setText('Name: '+str(name))")
             eval(f"self.lb_Player{playerid}_icon.setText('Icon: '+str(icon))")
         
+            
             self.playerlist[playerid-1] = Player(name, icon, budget, 0)
 
 
@@ -77,7 +100,7 @@ class AddPlayerWindow(QMainWindow, Ui_Form):
 
     def commit_player(self):
         self.hide()
-        print('Budget',self.lnedit_budget.text())
+        print()
         budget = self.lnedit_budget.text()
         name = self.lnedit_playerName.text()
         icon = self.lnedit_icon.text()
@@ -87,19 +110,15 @@ class AddPlayerWindow(QMainWindow, Ui_Form):
     def exit_new_player(self):
         self.hide()
 
-def load_white_mode():
-    frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
-    frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-
-def load_dark_mode():
-    frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-    frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
     
 if __name__ == "__main__":
     app = QApplication()
     frm_main = MainWindow()
     frm_addPlayer = AddPlayerWindow(parentWindow= frm_main)
-    load_dark_mode()
     frm_addPlayer.hide()
+    frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+    frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+    frm_main.btn_qss_toggle.setText("Whitemode")
+    # frm_main.reload_style_sheets()
     frm_main.show()
     app.exec()

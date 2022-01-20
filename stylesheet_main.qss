@@ -1,6 +1,7 @@
 QLabel{
     font-size: 20px;
-    font: calibri;
+    font: arial;
+    font: bold;
 }
 QWidget{
 background: #00161e;
@@ -26,35 +27,30 @@ QLabel{
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
     background: #008888;
 }
-
-
 QLineEdit{
     background: #00161e;
     border: 2px solid #000;
     border-radius: 5px;
 }
-
-QPushButton{
+QPushButton{;
     font-size: 23px;
-    font: calibri;
     border-radius: 5px;
     background: #004444;
 }
 QPushButton:hover{
     background: #005555;
 }
-
 QSlider{
     color: yellow;
 }
 QSlider::handle:horizontal{
-    background: white;
+    background: gray;
     
     margin-right: -10px;
     margin-left: -10px;
 }
 QSlider::sub-page:horizontal{
-    background: rgb(255, 0, 0);
+    background: rgb(230, 90, 0);
 }
 QSlider::groove:horizontal{
     background: orange;
@@ -65,6 +61,6 @@ QSlider::groove:horizontal{
     color: #00161e;
 } */
 QSlider::handle:hover{
-    background: lime;
+    background: darkblue;
     height: 23px;
 }

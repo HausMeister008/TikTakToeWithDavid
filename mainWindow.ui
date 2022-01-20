@@ -331,18 +331,22 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_qss_reload">
-           <property name="text">
-            <string>darkmode</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_qss_reload_weird">
-           <property name="text">
-            <string>whitemode</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="qss_change">
+           <item>
+            <widget class="QPushButton" name="btn_qss_toggle">
+             <property name="text">
+              <string>Toggle Mode</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_qss_reload">
+             <property name="text">
+              <string>Reload QSS</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QLabel" name="lb_outputField">
@@ -583,8 +587,6 @@
   <tabstop>sl_player2</tabstop>
   <tabstop>btn_Create_Player_1</tabstop>
   <tabstop>btn_Create_Player_2</tabstop>
-  <tabstop>btn_qss_reload</tabstop>
-  <tabstop>btn_qss_reload_weird</tabstop>
  </tabstops>
  <resources/>
  <connections/>
