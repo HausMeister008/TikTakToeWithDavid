@@ -55,10 +55,22 @@
       </property>
       <item>
        <widget class="QFrame" name="fr_player1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>200</width>
           <height>500</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>250</width>
+          <height>16777215</height>
          </size>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -309,7 +321,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QFrame" name="frame">
+          <widget class="QFrame" name="fr_game_board">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -319,7 +331,7 @@
            <property name="minimumSize">
             <size>
              <width>400</width>
-             <height>500</height>
+             <height>450</height>
             </size>
            </property>
            <property name="frameShape">
@@ -328,25 +340,40 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
+           <layout class="QGridLayout" name="gridLayout_2"/>
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="qss_change">
-           <item>
-            <widget class="QPushButton" name="btn_qss_toggle">
-             <property name="text">
-              <string>Toggle Mode</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btn_qss_reload">
-             <property name="text">
-              <string>Reload QSS</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QFrame" name="fr_css_modes">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <layout class="QHBoxLayout" name="qss_change">
+            <item>
+             <widget class="QPushButton" name="btn_qss_toggle">
+              <property name="text">
+               <string>Toggle Mode</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_qss_reload">
+              <property name="text">
+               <string>Reload QSS</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="lb_outputField">
@@ -381,10 +408,22 @@
       </item>
       <item>
        <widget class="QFrame" name="fr_player2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>200</width>
           <height>500</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>250</width>
+          <height>16777215</height>
          </size>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">

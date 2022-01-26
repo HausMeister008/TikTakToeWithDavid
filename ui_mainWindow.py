@@ -48,7 +48,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.fr_player1 = QFrame(self.centralwidget)
         self.fr_player1.setObjectName(u"fr_player1")
+        sizePolicy.setHeightForWidth(self.fr_player1.sizePolicy().hasHeightForWidth())
+        self.fr_player1.setSizePolicy(sizePolicy)
         self.fr_player1.setMinimumSize(QSize(200, 500))
+        self.fr_player1.setMaximumSize(QSize(250, 16777215))
         self.verticalLayout_2 = QVBoxLayout(self.fr_player1)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(6, 0, 6, 0)
@@ -148,30 +151,36 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.lb_mainHeadline, 0, Qt.AlignTop)
 
-        self.frame = QFrame(self.fr_mainContent)
-        self.frame.setObjectName(u"frame")
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
-        self.frame.setMinimumSize(QSize(400, 500))
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.fr_game_board = QFrame(self.fr_mainContent)
+        self.fr_game_board.setObjectName(u"fr_game_board")
+        sizePolicy.setHeightForWidth(self.fr_game_board.sizePolicy().hasHeightForWidth())
+        self.fr_game_board.setSizePolicy(sizePolicy)
+        self.fr_game_board.setMinimumSize(QSize(400, 450))
+        self.fr_game_board.setFrameShape(QFrame.StyledPanel)
+        self.fr_game_board.setFrameShadow(QFrame.Raised)
+        self.gridLayout_2 = QGridLayout(self.fr_game_board)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
 
-        self.verticalLayout_3.addWidget(self.frame)
+        self.verticalLayout_3.addWidget(self.fr_game_board)
 
-        self.qss_change = QHBoxLayout()
+        self.fr_css_modes = QFrame(self.fr_mainContent)
+        self.fr_css_modes.setObjectName(u"fr_css_modes")
+        self.fr_css_modes.setMinimumSize(QSize(0, 50))
+        self.fr_css_modes.setMaximumSize(QSize(16777215, 50))
+        self.qss_change = QHBoxLayout(self.fr_css_modes)
         self.qss_change.setObjectName(u"qss_change")
-        self.btn_qss_toggle = QPushButton(self.fr_mainContent)
+        self.btn_qss_toggle = QPushButton(self.fr_css_modes)
         self.btn_qss_toggle.setObjectName(u"btn_qss_toggle")
 
         self.qss_change.addWidget(self.btn_qss_toggle)
 
-        self.btn_qss_reload = QPushButton(self.fr_mainContent)
+        self.btn_qss_reload = QPushButton(self.fr_css_modes)
         self.btn_qss_reload.setObjectName(u"btn_qss_reload")
 
         self.qss_change.addWidget(self.btn_qss_reload)
 
 
-        self.verticalLayout_3.addLayout(self.qss_change)
+        self.verticalLayout_3.addWidget(self.fr_css_modes)
 
         self.lb_outputField = QLabel(self.fr_mainContent)
         self.lb_outputField.setObjectName(u"lb_outputField")
@@ -188,7 +197,10 @@ class Ui_MainWindow(object):
 
         self.fr_player2 = QFrame(self.centralwidget)
         self.fr_player2.setObjectName(u"fr_player2")
+        sizePolicy.setHeightForWidth(self.fr_player2.sizePolicy().hasHeightForWidth())
+        self.fr_player2.setSizePolicy(sizePolicy)
         self.fr_player2.setMinimumSize(QSize(200, 500))
+        self.fr_player2.setMaximumSize(QSize(250, 16777215))
         self.verticalLayout = QVBoxLayout(self.fr_player2)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(6, 0, 6, 0)

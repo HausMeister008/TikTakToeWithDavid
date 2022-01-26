@@ -16,18 +16,17 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
+    QLabel, QLineEdit, QMainWindow, QPushButton,
+    QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(350, 350)
+        Form.resize(350, 404)
         Form.setMinimumSize(QSize(350, 350))
         font = QFont()
-        font.setFamilies([u"Calibri"])
         Form.setFont(font)
         Form.setStyleSheet(u"")
         self.actionQuit = QAction(Form)
@@ -46,7 +45,20 @@ class Ui_Form(object):
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(9, 9, 9, 9)
-        self.lnedit_playerName = QLineEdit(self.centralwidget)
+        self.frame_2 = QFrame(self.centralwidget)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMaximumSize(QSize(16777215, 16777215))
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_2)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.label_3 = QLabel(self.frame_2)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setMinimumSize(QSize(100, 0))
+
+        self.horizontalLayout_3.addWidget(self.label_3)
+
+        self.lnedit_playerName = QLineEdit(self.frame_2)
         self.lnedit_playerName.setObjectName(u"lnedit_playerName")
         sizePolicy.setHeightForWidth(self.lnedit_playerName.sizePolicy().hasHeightForWidth())
         self.lnedit_playerName.setSizePolicy(sizePolicy)
@@ -54,9 +66,24 @@ class Ui_Form(object):
         self.lnedit_playerName.setMaximumSize(QSize(16777215, 60))
         self.lnedit_playerName.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.lnedit_playerName)
+        self.horizontalLayout_3.addWidget(self.lnedit_playerName)
 
-        self.lnedit_icon = QLineEdit(self.centralwidget)
+
+        self.verticalLayout.addWidget(self.frame_2)
+
+        self.frame_3 = QFrame(self.centralwidget)
+        self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_4 = QHBoxLayout(self.frame_3)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.label_2 = QLabel(self.frame_3)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setMinimumSize(QSize(100, 0))
+
+        self.horizontalLayout_4.addWidget(self.label_2)
+
+        self.lnedit_icon = QLineEdit(self.frame_3)
         self.lnedit_icon.setObjectName(u"lnedit_icon")
         sizePolicy.setHeightForWidth(self.lnedit_icon.sizePolicy().hasHeightForWidth())
         self.lnedit_icon.setSizePolicy(sizePolicy)
@@ -64,9 +91,30 @@ class Ui_Form(object):
         self.lnedit_icon.setMaximumSize(QSize(16777215, 60))
         self.lnedit_icon.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.lnedit_icon)
+        self.horizontalLayout_4.addWidget(self.lnedit_icon)
 
-        self.lnedit_budget = QLineEdit(self.centralwidget)
+
+        self.verticalLayout.addWidget(self.frame_3)
+
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        sizePolicy1 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy1)
+        self.frame.setMaximumSize(QSize(16777215, 16777215))
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.label = QLabel(self.frame)
+        self.label.setObjectName(u"label")
+        self.label.setMinimumSize(QSize(100, 0))
+
+        self.horizontalLayout_2.addWidget(self.label)
+
+        self.lnedit_budget = QLineEdit(self.frame)
         self.lnedit_budget.setObjectName(u"lnedit_budget")
         sizePolicy.setHeightForWidth(self.lnedit_budget.sizePolicy().hasHeightForWidth())
         self.lnedit_budget.setSizePolicy(sizePolicy)
@@ -74,7 +122,10 @@ class Ui_Form(object):
         self.lnedit_budget.setMaximumSize(QSize(16777215, 60))
         self.lnedit_budget.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.lnedit_budget)
+        self.horizontalLayout_2.addWidget(self.lnedit_budget)
+
+
+        self.verticalLayout.addWidget(self.frame)
 
         self.wdg_buttonContainer = QWidget(self.centralwidget)
         self.wdg_buttonContainer.setObjectName(u"wdg_buttonContainer")
@@ -84,9 +135,6 @@ class Ui_Form(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.btn_exitNewPlayer = QPushButton(self.wdg_buttonContainer)
         self.btn_exitNewPlayer.setObjectName(u"btn_exitNewPlayer")
-        sizePolicy1 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.btn_exitNewPlayer.sizePolicy().hasHeightForWidth())
         self.btn_exitNewPlayer.setSizePolicy(sizePolicy1)
         self.btn_exitNewPlayer.setMinimumSize(QSize(0, 50))
@@ -115,7 +163,6 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.btn_exitNewPlayer.clicked.connect(Form.exit_new_player)
-        self.btn_commitNewPlayer.clicked.connect(Form.player_commit)
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
@@ -123,9 +170,12 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"MainWindow", None))
         self.actionQuit.setText(QCoreApplication.translate("Form", u"Quit", None))
-        self.lnedit_playerName.setText(QCoreApplication.translate("Form", u"Player Name", None))
-        self.lnedit_icon.setText(QCoreApplication.translate("Form", u"Icon", None))
-        self.lnedit_budget.setText(QCoreApplication.translate("Form", u"Budget", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"Player Name", None))
+        self.lnedit_playerName.setText("")
+        self.label_2.setText(QCoreApplication.translate("Form", u"Icon", None))
+        self.lnedit_icon.setText("")
+        self.label.setText(QCoreApplication.translate("Form", u"Guthaben:", None))
+        self.lnedit_budget.setText("")
         self.btn_exitNewPlayer.setText(QCoreApplication.translate("Form", u"EXIT", None))
         self.btn_commitNewPlayer.setText(QCoreApplication.translate("Form", u"COMMIT", None))
     # retranslateUi

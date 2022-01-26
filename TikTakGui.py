@@ -1,11 +1,15 @@
+# button generator: spacing and growing
+
 from random import randint
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QFrame, QHBoxLayout, QSizePolicy
+from PySide6.QtGui import QCursor
+from PySide6.QtCore import Qt
 from PySide6 import QtSql
 from ui_mainWindow import Ui_MainWindow
 from ui_PlayerWindow import Ui_Form
 
 class Player:
-    def __init__(self, name, icon, budget, current_bet) -> None:
+    def __init__(self, name, icon, budget, current_bet):
         self.name = name
         self.icon = icon
         self.budget = budget
@@ -19,52 +23,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
-        self.btn_qss_reload.clicked.connect(self.reload_style_sheets)
+        self.btn_qss_reload.clicked.connect(reload_style_sheets)
         self.playerlist = [None, None]
 
-        self.btn_Create_Player_1.clicked.connect(self.ID1)
-        self.btn_Create_Player_2.clicked.connect(self.ID2)
-        self.btn_qss_toggle.clicked.connect(self.toggle_stylesheet)
-        self.sl_player1.valueChanged.connect(self.sl_val_change)
+        # self.btn_Create_Player_1.clicked.connect(lambda: self.create_new_player(1))
+        # self.btn_Create_Player_2.clicked.connect(lambda: self.create_new_player(2)  )
+        self.btn_qss_toggle.clicked.connect(toggle_stylesheet)
+        # self.sl_player1.valueChanged.connect(self.sl_val_change)
         self.sl_player1.setMinimum(0)
         self.set_player(1,randint(100, 10000), 'David', 'X')
         self.set_player(2,randint(1, 200), "Leon", "O")
 
-#lb_outputField
 
     def sl_val_change(self):
-        self.lb_outputField.setText(str(self.sl_player1.value()))
+        self.lb_outputField.setText(str(self.sl_player1.value()))      
 
-    def ID1(self):
-        self.create_new_player(1)
-
-    def ID2(self):
-        self.create_new_player(2)        
-      
-    def reload_style_sheets(self):
-        if self.toggle == 1:
-            frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
-            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-        else:
-            frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())  
-      
-    def toggle_stylesheet(self):
-        if self.toggle == 0:
-            frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
-            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-            self.toggle = 1
-            self.btn_qss_toggle.setText("Darkmode")
-        else:
-            frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-            frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-            self.toggle = 0
-            self.btn_qss_toggle.setText("Whitemode")
-            
-
-    def create_new_player(self, ID:int):
-        frm_addPlayer.reset_values()
-        frm_addPlayer.showWindow(ID)
+    def create_new_player(self,addplayerWindow:QMainWindow, ID:int): 
+        addplayerWindow.reset_values()
+        addplayerWindow.showWindow(ID)
 
     def set_player(self, playerid:int, budget, name, icon):
         if playerid in range(1,3) and str(budget).isdigit():
@@ -72,11 +48,61 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             eval(f"self.lb_Player{playerid}_budget.setText('Budget: '+str(budget))")
             eval(f"self.lb_Player{playerid}_name.setText('Name: '+str(name))")
             eval(f"self.lb_Player{playerid}_icon.setText('Icon: '+str(icon))")
-        
-            
+                    
             self.playerlist[playerid-1] = Player(name, icon, budget, 0)
+    
+    def draw(self, board:list):
+        print(board)
+        for column in range(len(board)):
+            r = []
+            for row in range(len(board)):
+                print(column, row)
+                r.append(QPushButton(parent=self.fr_game_board, text=board[column][row]))
+            board[column] = r
+        
+        containing_frame = QFrame(self.fr_game_board)
+        containing_frame.setStyleSheet('min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px;')
+        containing_layout = QHBoxLayout(containing_frame)
+        containing_layout.setContentsMargins(0, 0, 0, 0)
+        for column in board:
+            new_frame = QFrame(containing_frame)
+            # new_frame.setStyleSheet('margin-left: 6px;')
+            new_layout = QVBoxLayout(new_frame)
+            new_layout.setContentsMargins(2,0,2,0)
+            # .setSpacing(0)
+            
+            for button in column:
+                sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+                button.setStyleSheet('min-height: 30px;min-width: 30px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;')
+                button.setSizePolicy(sizePolicy)
+                button.setCursor(QCursor(Qt.PointingHandCursor))
+                new_layout.addWidget(button)
+                
+            containing_layout.addWidget(new_frame)
+        
+        self.gridLayout_2.addWidget(containing_frame)
+                
 
-
+def reload_style_sheets(self):
+    if self.toggle == 1:
+        frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
+        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
+    else:
+        frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())  
+    
+def toggle_stylesheet(self):
+    if self.toggle == 0:
+        frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
+        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
+        self.toggle = 1
+        self.btn_qss_toggle.setText("Darkmode")
+    else:
+        frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+        self.toggle = 0
+        self.btn_qss_toggle.setText("Whitemode")
+        
 class AddPlayerWindow(QMainWindow, Ui_Form):
     def __init__(self, parentWindow: MainWindow):
         super().__init__()

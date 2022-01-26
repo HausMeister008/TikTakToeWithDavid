@@ -56,11 +56,14 @@ QSlider::groove:horizontal{
     background: orange;
     height: 23px;
 }
-/* QPushButton#btn_qss_reload{
-    background: #00161e;
-    color: #00161e;
-} */
+QPushButton#btn_qss_reload{
+    margin-left: 10px;
+}
 QSlider::handle:hover{
     background: darkblue;
     height: 23px;
+}
+
+QFrame#fr_game_board{
+    background: #222;
 }

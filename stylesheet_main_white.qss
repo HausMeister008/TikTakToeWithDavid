@@ -3,7 +3,6 @@ QLabel{
     font: calibri;
 }
 QWidget{
-background: #00ff00;
 color: #fff;
 }
 QFrame{
@@ -14,7 +13,7 @@ QFrame#fr_player2 > QLabel#lb_player_2_headline, QFrame#fr_player1 > QLabel#lb_p
     margin-top: 0;
 }
 QFrame#fr_player2 > QLabel, QFrame#fr_player1 > QLabel{
-    background: #000;
+    background: rgba(17, 41, 47, 1);
     margin-top: 10px;
     margin-right: 10px;
     border: 3px solid rgba(255, 128, 0, 0.1);
@@ -24,10 +23,10 @@ QLabel#lb_mainHeadline{
     color: Black;
 }
 QFrame#fr_player2 > QLabel:hover, QFrame#fr_player1 > QLabel:hover{
-    background: rgba(40,40,40,0.9);
-    color: red;
+    background: rgba(17, 41, 47, 1);
+
     margin-bottom: 0;
-    margin-top: 0;
+
 }
 
 
@@ -41,10 +40,10 @@ QPushButton{
     font-size: 23px;
     font: calibri;
     border-radius: 5px;
-    background: #006000;
+    background: #004444;
 }
 QPushButton:hover{
-    background: #004c00;
+    background: #003333;
 }
 
 QSlider{
@@ -62,14 +61,21 @@ QSlider::sub-page:horizontal{
 QSlider::groove:horizontal{
     background: orange;
 }
-/* QPushButton#btn_qss_reload_weird{
-    background: #eee;
-    color: #eee;
-} */
-QSlider::handle:hover{
-    background: darkblue;
+
+QSlider::handle#sl_player2:hover{
+    background: #468;
+    height: 23px;
+}
+QSlider::handle#sl_player1:hover{
+    background: #7700aa;
     height: 23px;
 }
 QLabel#lb_outputField{
     color: black;
+}
+QPushButton#btn_qss_reload{
+    margin-left: 10px;
+}
+QFrame#fr_game_board{
+    background: #222;
 }
