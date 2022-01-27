@@ -1,5 +1,7 @@
 # button generator: spacing and growing
 
+from mimetypes import init
+from operator import truediv
 from random import randint
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QFrame, QHBoxLayout, QSizePolicy
 from PySide6.QtGui import QCursor
@@ -31,17 +33,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
-        self.btn_qss_reload.clicked.connect(reload_style_sheets)
+        self.btn_qss_reload.clicked.connect(self.reload_style_sheets)
         self.playerlist = [None, None]
 
         # self.btn_Create_Player_1.clicked.connect(lambda: self.create_new_player(1))
         # self.btn_Create_Player_2.clicked.connect(lambda: self.create_new_player(2)  )
-        self.btn_qss_toggle.clicked.connect(toggle_stylesheet)
+        self.btn_qss_toggle.clicked.connect(load_stylesheet)
         # self.sl_player1.valueChanged.connect(self.sl_val_change)
         self.sl_player1.setMinimum(0)
         self.set_player(1,randint(100, 10000), 'David', 'X')
         self.set_player(2,randint(1, 200), "Leon", "O")
-
+        self.icon = "X"
+        self.childWindow = AddPlayerWindow
 
     def sl_val_change(self):
         self.lb_outputField.setText(str(self.sl_player1.value()))      
@@ -60,7 +63,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.playerlist[playerid-1] = Player(name, icon, budget, 0)
     
     def draw(self, board:list):
-        print(board)
+        # print(board)
         for column in range(len(board)):
             r = []
             for row in range(len(board)):
@@ -79,19 +82,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # .setSpacing(0)
             
             for index, button in enumerate(column):
-                print(b_index, index)
+                # print(b_index, index)
                 sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
                 board[b_index][index].setStyleSheet('min-height: 30px;min-width: 30px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;')
                 board[b_index][index].setSizePolicy(sizePolicy)
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
-                board[b_index][index].clicked.connect(lambda : board[b_index][index].setText('X'))
+                
+                if self.icon == "X":
+                    self.icon = "C"
+                else:
+                    self.icon = "X"
+                
+                board[b_index][index].clicked.connect(lambda : board[b_index - 1][index - index].setText(self.icon_oscilator()))
                 new_layout.addWidget(board[b_index][index])
                 
             containing_layout.addWidget(new_frame)
         
         self.gridLayout_2.addWidget(containing_frame)
-                
 
+<<<<<<< HEAD
 def reload_style_sheets():
     if toggle == 1:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
@@ -109,8 +118,34 @@ def toggle_stylesheet():
         frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
         self.btn_qss_toggle.setText("Whitemode")
+=======
+    def icon_oscilator(self):
+        if self.icon == "X":
+            self.icon = "C"
+        else:
+            self.icon = "X"
+        return self.icon
+
+    def reload_style_sheets(self):
+        if toggle == 1:
+            self.setStyleSheet(str(open('./stylesheet_main_white.qss', encoding="utf-8").read()))
+            self.childWindow.setStyleSheetstr((open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read()))
+        else:
+            self.setStyleSheet(str(open('./stylesheet_main.qss', encoding="utf-8").read()))
+            self.childWindow.setStyleSheet(str(open('./stylesheet_addPlayer.qss', encoding="utf-8").read()))
+        
+    def toggle_stylesheet(self):
+        if toggle == 1:
+            self.setStyleSheet(str(open('./stylesheet_main_white.qss', encoding="utf-8").read()))
+            self.childWindow.setStyleSheet(str(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read()))
+            self.btn_qss_toggle.setText("Darkmode")
+        else:
+            self.setStyleSheet(str(open('./stylesheet_main.qss', encoding="utf-8").read()))
+            self.childWindow.setStyleSheet(str(open('./stylesheet_addPlayer.qss', encoding="utf-8").read()))
+            self.btn_qss_toggle.setText("Whitemode")
+        toggle = 1 if toggle == 0 else 0
+>>>>>>> 9bc70e34aa73a9f2a3a4ed9db2bf622404f36b83
     
-    toggle = 1 if toggle == 0 else 0
         
 class AddPlayerWindow(QMainWindow, Ui_Form):
     def __init__(self, parentWindow: MainWindow):
@@ -144,15 +179,27 @@ class AddPlayerWindow(QMainWindow, Ui_Form):
     
     def exit_new_player(self):
         self.hide()
-
+        
+def load_stylesheet():
+    text = MainWindow.btn_qss_toggle.text()
+    if text == "whitemode":
+        MainWindow.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+        AddPlayerWindow.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+        MainWindow.btn_qss_toggle.setText("darkmode")
+    else:
+        MainWindow.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
+        AddPlayerWindow.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
+        MainWindow.btn_qss_toggle.setText("whitemode")
+    
     
 if __name__ == "__main__":
     app = QApplication()
     frm_main = MainWindow()
     frm_addPlayer = AddPlayerWindow(parentWindow= frm_main)
     frm_addPlayer.hide()
-    frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-    frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+    # frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+    # frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+    load_stylesheet()
     frm_main.btn_qss_toggle.setText("Whitemode")
     # frm_main.reload_style_sheets()
     frm_main.show()

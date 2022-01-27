@@ -90,6 +90,5 @@ if __name__ == "__main__":
     guiPlayer1.output("test")
     guiGameboard.redraw()
     mainWindow.show()
-    print("highway to hell AC/DC")
     load()
     app.exec()
