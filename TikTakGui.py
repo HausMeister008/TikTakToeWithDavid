@@ -33,7 +33,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
-        self.btn_qss_reload.clicked.connect(self.reload_style_sheets)
+        self.btn_qss_reload.clicked.connect(reload_style_sheets)
         self.playerlist = [None, None]
 
         # self.btn_Create_Player_1.clicked.connect(lambda: self.create_new_player(1))
@@ -100,7 +100,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.gridLayout_2.addWidget(containing_frame)
 
-<<<<<<< HEAD
 def reload_style_sheets():
     if toggle == 1:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
@@ -113,38 +112,11 @@ def toggle_stylesheet():
     if toggle == 0:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-        self.btn_qss_toggle.setText("Darkmode")
+        frm_main.btn_qss_toggle.setText("Darkmode")
     else:
         frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-        self.btn_qss_toggle.setText("Whitemode")
-=======
-    def icon_oscilator(self):
-        if self.icon == "X":
-            self.icon = "C"
-        else:
-            self.icon = "X"
-        return self.icon
-
-    def reload_style_sheets(self):
-        if toggle == 1:
-            self.setStyleSheet(str(open('./stylesheet_main_white.qss', encoding="utf-8").read()))
-            self.childWindow.setStyleSheetstr((open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read()))
-        else:
-            self.setStyleSheet(str(open('./stylesheet_main.qss', encoding="utf-8").read()))
-            self.childWindow.setStyleSheet(str(open('./stylesheet_addPlayer.qss', encoding="utf-8").read()))
-        
-    def toggle_stylesheet(self):
-        if toggle == 1:
-            self.setStyleSheet(str(open('./stylesheet_main_white.qss', encoding="utf-8").read()))
-            self.childWindow.setStyleSheet(str(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read()))
-            self.btn_qss_toggle.setText("Darkmode")
-        else:
-            self.setStyleSheet(str(open('./stylesheet_main.qss', encoding="utf-8").read()))
-            self.childWindow.setStyleSheet(str(open('./stylesheet_addPlayer.qss', encoding="utf-8").read()))
-            self.btn_qss_toggle.setText("Whitemode")
-        toggle = 1 if toggle == 0 else 0
->>>>>>> 9bc70e34aa73a9f2a3a4ed9db2bf622404f36b83
+        frm_main.btn_qss_toggle.setText("Whitemode")
     
         
 class AddPlayerWindow(QMainWindow, Ui_Form):
@@ -181,15 +153,15 @@ class AddPlayerWindow(QMainWindow, Ui_Form):
         self.hide()
         
 def load_stylesheet():
-    text = MainWindow.btn_qss_toggle.text()
+    text = frm_main.btn_qss_toggle.text()
     if text == "whitemode":
-        MainWindow.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-        AddPlayerWindow.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-        MainWindow.btn_qss_toggle.setText("darkmode")
+        frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
+        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
+        frm_main.btn_qss_toggle.setText("darkmode")
     else:
-        MainWindow.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
-        AddPlayerWindow.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-        MainWindow.btn_qss_toggle.setText("whitemode")
+        frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
+        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
+        frm_main.btn_qss_toggle.setText("whitemode")
     
     
 if __name__ == "__main__":
