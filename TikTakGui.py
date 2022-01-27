@@ -92,7 +92,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.gridLayout_2.addWidget(containing_frame)
                 
 
-def reload_style_sheets(self):
+def reload_style_sheets():
     if toggle == 1:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
@@ -100,7 +100,7 @@ def reload_style_sheets(self):
         frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())  
     
-def toggle_stylesheet(self):
+def toggle_stylesheet():
     if toggle == 0:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
