@@ -8,6 +8,9 @@ from PySide6 import QtSql
 from ui_mainWindow import Ui_MainWindow
 from ui_PlayerWindow import Ui_Form
 
+
+toggle = 0
+
 class Player:
     def __init__(self, name, icon, budget, current_bet):
         self.name = name
@@ -25,7 +28,6 @@ class Player:
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.toggle = 0
         self.setupUi(self)
         self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
@@ -91,7 +93,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 
 
 def reload_style_sheets(self):
-    if self.toggle == 1:
+    if toggle == 1:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
     else:
@@ -99,16 +101,16 @@ def reload_style_sheets(self):
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())  
     
 def toggle_stylesheet(self):
-    if self.toggle == 0:
+    if toggle == 0:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-        self.toggle = 1
         self.btn_qss_toggle.setText("Darkmode")
     else:
         frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-        self.toggle = 0
         self.btn_qss_toggle.setText("Whitemode")
+    
+    toggle = 1 if toggle == 0 else 0
         
 class AddPlayerWindow(QMainWindow, Ui_Form):
     def __init__(self, parentWindow: MainWindow):
