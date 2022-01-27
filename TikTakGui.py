@@ -15,6 +15,12 @@ class Player:
         self.budget = budget
         self.current_bet = current_bet
     
+# class CustomButton(QPushButton):
+#     def __init__():
+#         super().__init__()
+    
+#     def setIcon(self, icon):
+#         pass
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -56,7 +62,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for column in range(len(board)):
             r = []
             for row in range(len(board)):
-                print(column, row)
                 r.append(QPushButton(parent=self.fr_game_board, text=board[column][row]))
             board[column] = r
         
@@ -64,19 +69,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         containing_frame.setStyleSheet('min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px;')
         containing_layout = QHBoxLayout(containing_frame)
         containing_layout.setContentsMargins(0, 0, 0, 0)
-        for column in board:
+        for b_index, column in enumerate(board):
             new_frame = QFrame(containing_frame)
             # new_frame.setStyleSheet('margin-left: 6px;')
             new_layout = QVBoxLayout(new_frame)
             new_layout.setContentsMargins(2,0,2,0)
             # .setSpacing(0)
             
-            for button in column:
+            for index, button in enumerate(column):
+                print(b_index, index)
                 sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-                button.setStyleSheet('min-height: 30px;min-width: 30px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;')
-                button.setSizePolicy(sizePolicy)
-                button.setCursor(QCursor(Qt.PointingHandCursor))
-                new_layout.addWidget(button)
+                board[b_index][index].setStyleSheet('min-height: 30px;min-width: 30px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;')
+                board[b_index][index].setSizePolicy(sizePolicy)
+                board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
+                board[b_index][index].clicked.connect(lambda : board[b_index][index].setText('X'))
+                new_layout.addWidget(board[b_index][index])
                 
             containing_layout.addWidget(new_frame)
         
