@@ -6,6 +6,8 @@ QLabel{
 QWidget{
 background: #00161e;
 color: white;
+font-size: 15px;
+font-weight: 900;
 }
 QFrame{
     background:#00161e;

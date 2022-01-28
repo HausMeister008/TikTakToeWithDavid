@@ -84,7 +84,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for index, button in enumerate(column):
                 # print(b_index, index)
                 sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-                board[b_index][index].setStyleSheet('min-height: 30px;min-width: 30px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;')
+                board[b_index][index].setStyleSheet('min-height: 10px;min-width: 20px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;')
                 board[b_index][index].setSizePolicy(sizePolicy)
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
                 
@@ -93,7 +93,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.icon = "X"
                 
-                board[b_index][index].clicked.connect(lambda : board[b_index - 1][index - index].setText(self.icon_oscilator()))
+                board[b_index][index].clicked.connect(lambda : board[b_index][index - index].setText(self.icon_oscilator()))
                 new_layout.addWidget(board[b_index][index])
                 
             containing_layout.addWidget(new_frame)
@@ -107,16 +107,7 @@ def reload_style_sheets():
     else:
         frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())  
-    
-def toggle_stylesheet():
-    if toggle == 0:
-        frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
-        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-        frm_main.btn_qss_toggle.setText("Darkmode")
-    else:
-        frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-        frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-        frm_main.btn_qss_toggle.setText("Whitemode")
+
     
         
 class AddPlayerWindow(QMainWindow, Ui_Form):
@@ -154,14 +145,14 @@ class AddPlayerWindow(QMainWindow, Ui_Form):
         
 def load_stylesheet():
     text = frm_main.btn_qss_toggle.text()
-    if text == "whitemode":
+    if text == "darkmode":
         frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-        frm_main.btn_qss_toggle.setText("darkmode")
+        frm_main.btn_qss_toggle.setText("whitemode")
     else:
         frm_main.setStyleSheet(open('./stylesheet_main_white.qss', encoding="utf-8").read())
         frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer_white.qss', encoding="utf-8").read())
-        frm_main.btn_qss_toggle.setText("whitemode")
+        frm_main.btn_qss_toggle.setText("darkmode")
     
     
 if __name__ == "__main__":

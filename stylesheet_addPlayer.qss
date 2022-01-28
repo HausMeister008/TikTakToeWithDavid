@@ -1,6 +1,7 @@
 QLabel{
     font-size: 20px;
-    font: calibri;
+    font: arial;
+    font: bold;
 }
 QWidget{
 background: #00161e;

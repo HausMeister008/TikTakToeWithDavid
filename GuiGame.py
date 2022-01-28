@@ -7,6 +7,7 @@ from TikTakGui import *
 class MainWindow(MainWindow):
     def __init__(self):
         super().__init__()
+        self.icon = "x"
 
     def get_player(self, id):
         """"
@@ -17,6 +18,12 @@ class MainWindow(MainWindow):
     def set_player(self, playerid:int, budget, name, icon):
         super().set_player(playerid, budget, name, icon)
             
+    def icon_oscilator(self):
+        if self.icon == "x":
+            self. icon = "o"
+        else:
+            self.icon = "x"
+        return self.icon
 class GuiGameboard(Gameboard):
     def __init__(self, mainWindow:MainWindow,playerWindow:MainWindow, players: list[str] = ['Alice', 'Bob'], f_size: int = 3):
         self.mainWindow = mainWindow
