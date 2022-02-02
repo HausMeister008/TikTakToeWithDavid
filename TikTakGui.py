@@ -1,12 +1,13 @@
 from mimetypes import init
 from operator import truediv
 from random import randint
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QFrame, QHBoxLayout, QSizePolicy
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QFrame, QHBoxLayout, QSizePolicy, QDialog
 from PySide6.QtGui import QCursor
 from PySide6.QtCore import Qt
 from PySide6 import QtSql
-from ui_mainWindow import Ui_MainWindow
-from ui_PlayerWindow import Ui_Form
+
+from uiFiles.ui_mainWindow import Ui_MainWindow
+from uiFiles.ui_addPlayerDialog import Ui_Dialog
 
 
 toggle = 0
@@ -37,14 +38,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # self.btn_Create_Player_1.clicked.connect(lambda: self.create_new_player(1))
         # self.btn_Create_Player_2.clicked.connect(lambda: self.create_new_player(2)  )
         self.btn_qss_toggle.clicked.connect(load_stylesheet)
-        # self.sl_player1.valueChanged.connect(self.sl_val_change)
         self.sl_player1.setMinimum(0)
         self.set_player(1,randint(100, 10000), 'David', 'X')
         self.set_player(2,randint(1, 200), "Leon", "O")
         self.icon = "X"
-
-    def sl_val_change(self):
-        self.lb_outputField.setText(str(self.sl_player1.value()))      
 
     def create_new_player(self,addplayerWindow:QMainWindow, ID:int): 
         addplayerWindow.reset_values()
@@ -59,8 +56,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     
             self.playerlist[playerid-1] = Player(name, icon, budget, 0)
     
-    def changeText(self, b: QPushButton):
-        b.setText(self.icon_oscilator())
+    def changeText(self, b: QPushButton, icon:str):
+        b.setText(icon)
     
     def draw(self, board:list):
         # print(board)
@@ -89,12 +86,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
                 
                 if self.icon == "X":
-                    self.icon = "C"
+                    self.icon = "O"
                 else:
                     self.icon = "X"
                     
                 x = board[b_index][index]
-                x.clicked.connect(lambda checked=x.isChecked(), a=x: self.changeText(a))
+                x.clicked.connect(lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(button, icon))
                 new_layout.addWidget(board[b_index][index])
                 
             containing_layout.addWidget(new_frame)
@@ -111,7 +108,7 @@ def reload_style_sheets():
 
     
         
-class AddPlayerWindow(QMainWindow, Ui_Form):
+class AddPlayerWindow(QDialog, Ui_Dialog):
     def __init__(self, parentWindow: MainWindow):
         super().__init__()
         self.setupUi(self)
