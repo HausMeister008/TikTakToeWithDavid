@@ -19,11 +19,10 @@ class MainWindow(MainWindow):
         super().set_player(playerid, budget, name, icon)
             
     def icon_oscilator(self):
-        if self.icon == "x":
-            self. icon = "o"
-        else:
-            self.icon = "x"
+        self.icon = 'X' if self.icon=='O' else 'O'
         return self.icon
+    
+    
 class GuiGameboard(Gameboard):
     def __init__(self, mainWindow:MainWindow,playerWindow:MainWindow, players: list[str] = ['Alice', 'Bob'], f_size: int = 3):
         self.mainWindow = mainWindow

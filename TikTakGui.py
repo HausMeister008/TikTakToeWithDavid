@@ -62,6 +62,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     
             self.playerlist[playerid-1] = Player(name, icon, budget, 0)
     
+    def changeText(self, b: QPushButton):
+        b.setText(self.icon_oscilator())
+    
     def draw(self, board:list):
         # print(board)
         for column in range(len(board)):
@@ -92,8 +95,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     self.icon = "C"
                 else:
                     self.icon = "X"
-                
-                board[b_index][index].clicked.connect(lambda : board[b_index][index - index].setText(self.icon_oscilator()))
+                    
+                x = board[b_index][index]
+                x.clicked.connect(lambda checked=x.isChecked(), a=x: self.changeText(a))
                 new_layout.addWidget(board[b_index][index])
                 
             containing_layout.addWidget(new_frame)
