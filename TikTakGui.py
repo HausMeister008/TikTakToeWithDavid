@@ -1,5 +1,3 @@
-# button generator: spacing and growing
-
 from mimetypes import init
 from operator import truediv
 from random import randint
@@ -44,7 +42,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_player(1,randint(100, 10000), 'David', 'X')
         self.set_player(2,randint(1, 200), "Leon", "O")
         self.icon = "X"
-        self.childWindow = AddPlayerWindow
 
     def sl_val_change(self):
         self.lb_outputField.setText(str(self.sl_player1.value()))      
