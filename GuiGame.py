@@ -53,17 +53,17 @@ class GuiGameboard(Gameboard):
         text = frm_main.btn_qss_toggle.text()
         if text == "darkmode":
             frm_main.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
-            frm_addPlayer.setStyleSheet(
-                open("./stylesheet_addPlayer.qss", encoding="utf-8").read()
-            )
+            # frm_addPlayer.setStyleSheet(
+            #     open("./stylesheet_addPlayer.qss", encoding="utf-8").read()
+            # )
             frm_main.btn_qss_toggle.setText("whitemode")
         else:
             frm_main.setStyleSheet(
                 open("./stylesheet_main_white.qss", encoding="utf-8").read()
             )
-            frm_addPlayer.setStyleSheet(
-                open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read()
-            )
+            # frm_addPlayer.setStyleSheet(
+            #     open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read()
+            # )
             frm_main.btn_qss_toggle.setText("darkmode")
     
     
