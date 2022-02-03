@@ -65,7 +65,9 @@ QSlider::handle:hover{
     background: darkblue;
     height: 23px;
 }
-
 QFrame#fr_game_board{
-    background: #222;
+    background: #00161e;
 }
+/* QFrame# 0x00000254978AD2C0 > QLabel:hover{
+    background #00ff00
+} */

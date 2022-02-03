@@ -1,6 +1,7 @@
 from mimetypes import init
 from operator import truediv
 from random import randint
+from tkinter import CENTER
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -11,6 +12,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QDialog,
     QInputDialog,
+    # QAlignCenter,
 )
 from PySide6.QtGui import QCursor
 from PySide6.QtCore import Qt, Signal
@@ -54,6 +56,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_player(1, randint(100, 10000), "David", "I")
         self.set_player(2, randint(1, 200), "Leon", "O")
         self.icon = "X"
+        self.icon_counter = 0
+
 
     def create_new_player(self, addplayerWindow: QMainWindow, ID: int):
         # addplayerWindow.reset_values()
@@ -68,11 +72,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def set_player(self, playerid: int, budget, name, icon):
         if playerid in range(1, 3) and str(budget).isdigit():
             eval(f"self.sl_player{playerid}.setMaximum(int(budget))")
+            
             eval(f"self.lb_Player{playerid}_budget.setText('Budget: '+str(budget))")
             eval(f"self.lb_Player{playerid}_name.setText('Name: '+str(name))")
             eval(f"self.lb_Player{playerid}_icon.setText('Icon: '+str(icon))")
 
             self.playerlist[playerid - 1] = Player(name, icon, budget, 0)
+
 
     def changeText(self, b: QPushButton, icon: str):
         self. icon_player_one = self.lb_Player1_icon.text()
@@ -85,6 +91,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.icon_storage = self.lb_Player1_icon.text()
             b.setText(self.icon_storage.replace("Icon: ", ""))
+        self.icon_counter +=1
+        if self.icon_counter == 9:
+            print("end")
+            return        
             
 
     def draw(self, board: list):
@@ -99,16 +109,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         containing_frame = QFrame(self.fr_game_board)
         containing_frame.setStyleSheet(
-            "min-height: 150px;min-width: 150px;max-height: 150px;max-width: 150px;"
+            "background: #999999; min-height: 300px; min-width: 300px;max-height: 300px;max-width: 300px;"
         )
         containing_layout = QHBoxLayout(containing_frame)
-        containing_layout.setContentsMargins(0, 0, 0, 0)
+        containing_layout.setContentsMargins(8, 0, 0, 0)
+        containing_layout.alignment()
         for b_index, column in enumerate(board):
             new_frame = QFrame(containing_frame)
             # new_frame.setStyleSheet('margin-left: 6px;')
             new_layout = QVBoxLayout(new_frame)
-            new_layout.setContentsMargins(2, 0, 2, 0)
-            # .setSpacing(0)
+            new_layout.setContentsMargins(6, 0, 6, 0)
+            new_layout.setSpacing(0)
 
             for index, button in enumerate(column):
                 # print(b_index, index)
@@ -116,7 +127,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
                 )
                 board[b_index][index].setStyleSheet(
-                    "min-height: 10px;min-width: 20px;max-height: 30px;max-width: 30px; border: 0; margin: 0; padding: 0; border-radius: 0;"
+                    "font-size: 40px; font: calibri; color: black; background: #ffffff; min-height: 60px;min-width: 60px;max-height: 60px;max-width: 60px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
                 )
                 board[b_index][index].setSizePolicy(sizePolicy)
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))

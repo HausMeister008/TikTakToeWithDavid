@@ -21,12 +21,12 @@ QPushButton{
     border-radius: 5px;
     background: #004444;
 }
-QPushButton:hover{
+QPushButton#btn_Create_Player_2:hover{
     background: #005555;
 }
-/* QPushButton#btn_exitNewPlayer:hover{
+QPushButton#btn_exitNewPlayer:hover{
     background: #cc0000;
 }
 QPushButton#btn_commitNewPlayer:hover{
-    background: #009900;
-} */
+    background: #ffffff;
+}
