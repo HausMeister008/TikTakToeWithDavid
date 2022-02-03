@@ -57,7 +57,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_player(2, randint(1, 200), "Leon", "O")
         self.icon = "X"
         self.icon_counter = 0
-
+        self.sl_player1.valueChanged.connect(lambda: self.change_slider(1))
+        self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
+        
+    def change_slider(self, playerID):
+        eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
 
     def create_new_player(self, addplayerWindow: QMainWindow, ID: int):
         # addplayerWindow.reset_values()
@@ -71,8 +75,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_player(self, playerid: int, budget, name, icon):
         if playerid in range(1, 3) and str(budget).isdigit():
+            tick_interval = budget / 10
             eval(f"self.sl_player{playerid}.setMaximum(int(budget))")
-            
+            eval(f"self.sl_player{playerid}.setTickInterval(tick_interval)")
             eval(f"self.lb_Player{playerid}_budget.setText('Budget: '+str(budget))")
             eval(f"self.lb_Player{playerid}_name.setText('Name: '+str(name))")
             eval(f"self.lb_Player{playerid}_icon.setText('Icon: '+str(icon))")

@@ -107,6 +107,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.sl_player1)
 
+        self.lp_player1_sl_value = QLabel(self.fr_player1)
+        self.lp_player1_sl_value.setObjectName(u"lp_player1_sl_value")
+        sizePolicy1.setHeightForWidth(self.lp_player1_sl_value.sizePolicy().hasHeightForWidth())
+        self.lp_player1_sl_value.setSizePolicy(sizePolicy1)
+        self.lp_player1_sl_value.setMinimumSize(QSize(0, 40))
+        self.lp_player1_sl_value.setMaximumSize(QSize(16777215, 60))
+        self.lp_player1_sl_value.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_2.addWidget(self.lp_player1_sl_value)
+
         self.lb_Player1_icon = QLabel(self.fr_player1)
         self.lb_Player1_icon.setObjectName(u"lb_Player1_icon")
         sizePolicy.setHeightForWidth(self.lb_Player1_icon.sizePolicy().hasHeightForWidth())
@@ -248,6 +258,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.sl_player2)
 
+        self.lp_player2_sl_value = QLabel(self.fr_player2)
+        self.lp_player2_sl_value.setObjectName(u"lp_player2_sl_value")
+        sizePolicy1.setHeightForWidth(self.lp_player2_sl_value.sizePolicy().hasHeightForWidth())
+        self.lp_player2_sl_value.setSizePolicy(sizePolicy1)
+        self.lp_player2_sl_value.setMinimumSize(QSize(0, 40))
+        self.lp_player2_sl_value.setMaximumSize(QSize(16777215, 60))
+        self.lp_player2_sl_value.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout.addWidget(self.lp_player2_sl_value)
+
         self.lb_Player2_icon = QLabel(self.fr_player2)
         self.lb_Player2_icon.setObjectName(u"lb_Player2_icon")
         sizePolicy.setHeightForWidth(self.lb_Player2_icon.sizePolicy().hasHeightForWidth())
@@ -291,6 +311,7 @@ class Ui_MainWindow(object):
         self.lb_Player1_name.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
         self.lb_Player1_budget.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
         self.lb_Player1_bet_value.setText(QCoreApplication.translate("MainWindow", u"Einsatz: ", None))
+        self.lp_player1_sl_value.setText("")
         self.lb_Player1_icon.setText(QCoreApplication.translate("MainWindow", u"Icon:", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
@@ -301,6 +322,7 @@ class Ui_MainWindow(object):
         self.lb_Player2_name.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
         self.lb_Player2_budget.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
         self.lb_Player2_bet_value.setText(QCoreApplication.translate("MainWindow", u"Einsatz: ", None))
+        self.lp_player2_sl_value.setText("")
         self.lb_Player2_icon.setText(QCoreApplication.translate("MainWindow", u"Icon:", None))
         self.btn_Create_Player_2.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
     # retranslateUi
