@@ -1,5 +1,6 @@
 # next: getting main window to send return message to the gameboard after creating a new player 
 
+from tqdm import main
 from Player import * 
 from Gameboard import *
 from TikTakGui import *

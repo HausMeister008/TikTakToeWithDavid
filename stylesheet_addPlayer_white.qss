@@ -21,9 +21,9 @@ QPushButton{
     border-radius: 5px;
     background: #ffffff;
 }
-QPushButton#btn_exitNewPlayer:hover{
+/* QPushButton#btn_exitNewPlayer:hover{
     background: #cc0000;
 }
 QPushButton#btn_commitNewPlayer:hover{
     background: #009900;
-}
+} */
