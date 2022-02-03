@@ -46,14 +46,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
-        self.btn_qss_reload.clicked.connect(reload_style_sheets)
         self.playerlist = [None, None]
         self.icon_storage= "x"
         # self.btn_Create_Player_1.clicked.connect(lambda: self.create_new_player(1))
         # self.btn_Create_Player_2.clicked.connect(lambda: self.create_new_player(2)  )
-        self.btn_qss_toggle.clicked.connect(load_stylesheet)
         self.sl_player1.setMinimum(0)
-        self.set_player(1, randint(100, 10000), "David", "X")
+        self.set_player(1, randint(100, 10000), "David", "I")
         self.set_player(2, randint(1, 200), "Leon", "O")
         self.icon = "X"
 
@@ -79,12 +77,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def changeText(self, b: QPushButton, icon: str):
         self. icon_player_one = self.lb_Player1_icon.text()
         self.icon_player_two = self.lb_Player2_icon.text()
-        if self.icon_storage == self.lb_Player1_icon.text():
-                self.icon_storage = self.lb_Player2_icon.text()
-        else:
-            self.icon_storage = self.lb_Player1_icon.text()
-        
-        b.setText(self.icon_storage.replace("Icon: ", ""))
+        print(b.text())
+        if b.text() == " ":
+            
+            if self.icon_storage == self.lb_Player1_icon.text():
+                    self.icon_storage = self.lb_Player2_icon.text()
+            else:
+                self.icon_storage = self.lb_Player1_icon.text()
+            b.setText(self.icon_storage.replace("Icon: ", ""))
+            
 
     def draw(self, board: list):
         # print(board)
@@ -130,6 +131,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(
                         button, icon
                     )
+                
                 )
                 new_layout.addWidget(board[b_index][index])
 
@@ -138,19 +140,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.gridLayout_2.addWidget(containing_frame)
 
 
-def reload_style_sheets():
-    if toggle == 1:
-        frm_main.setStyleSheet(
-            open("./stylesheet_main_white.qss", encoding="utf-8").read()
-        )
-        frm_addPlayer.setStyleSheet(
-            open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read()
-        )
-    else:
-        frm_main.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
-        frm_addPlayer.setStyleSheet(
-            open("./stylesheet_addPlayer.qss", encoding="utf-8").read()
-        )
 
 
 class AddPlayerWindow(QDialog, Ui_Dialog):

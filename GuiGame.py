@@ -36,6 +36,37 @@ class GuiGameboard(Gameboard):
         self.positions = {i+1:' ' for i in range(self.field_size**2)}
         self.playing = True
     
+    def reload_style_sheets(self):
+        if toggle == 1:
+            mainWindow.setStyleSheet(
+                open("./stylesheet_main_white.qss", encoding="utf-8").read()
+            )
+            addPlayerWindow.setStyleSheet(
+                open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read()
+            )
+        else:
+            mainWindow.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
+            addPlayerWindow.setStyleSheet(
+                open("./stylesheet_addPlayer.qss", encoding="utf-8").read()
+            )
+    def load_stylesheet():
+        text = frm_main.btn_qss_toggle.text()
+        if text == "darkmode":
+            frm_main.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
+            frm_addPlayer.setStyleSheet(
+                open("./stylesheet_addPlayer.qss", encoding="utf-8").read()
+            )
+            frm_main.btn_qss_toggle.setText("whitemode")
+        else:
+            frm_main.setStyleSheet(
+                open("./stylesheet_main_white.qss", encoding="utf-8").read()
+            )
+            frm_addPlayer.setStyleSheet(
+                open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read()
+            )
+            frm_main.btn_qss_toggle.setText("darkmode")
+    
+    
     def output(self, prompt):
         self.mainWindow.lb_outputField.setText(prompt)
     
@@ -71,7 +102,9 @@ class GuiPlayer(Player):
         creating new Player by opening GUI input terminal
         """
         self.gameBoard.get_player()
-     
+    
+
+
 
 def load():
     mainWindow.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
@@ -86,6 +119,12 @@ if __name__ == "__main__":
     mainWindow.btn_Create_Player_1.clicked.connect(
         lambda: guiGameboard.create_player(addPlayerWindow, 1)
         )
+    
+    mainWindow.btn_qss_reload.clicked.connect(
+        guiGameboard.reload_style_sheets
+        )
+    
+    # MainWindow.btn_qss_toggle.clicked.connect(guiGameboard.load_stylesheet())
     mainWindow.btn_Create_Player_2.clicked.connect(
         lambda: guiGameboard.create_player(addPlayerWindow, 2)
         )
