@@ -43,6 +43,7 @@ class Player():
 
     def won(self) -> int:
         self.budget += self.bet_value * 2
+        print(self.budget)
         return self.budget
 
     def draw(self, message: str = '', positions: dict = {}):

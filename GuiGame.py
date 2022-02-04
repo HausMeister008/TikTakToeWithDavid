@@ -1,6 +1,7 @@
 # next: getting main window to send return message to the gameboard after creating a new player 
 
 # from tqdm import main
+from csv import field_size_limit
 from Player import * 
 from Gameboard import *
 from TikTakGui import *
@@ -66,6 +67,10 @@ class GuiGameboard(Gameboard):
             # )
             frm_main.btn_qss_toggle.setText("darkmode")
     
+
+        
+
+
     
     def output(self, prompt):
         self.mainWindow.lb_outputField.setText(prompt)
@@ -102,7 +107,6 @@ class GuiPlayer(Player):
         creating new Player by opening GUI input terminal
         """
         self.gameBoard.get_player()
-    
 
 
 

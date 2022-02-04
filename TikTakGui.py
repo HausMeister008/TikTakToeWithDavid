@@ -110,9 +110,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if sym_num == int(len(self.board)):
             player.won()
             self.output(f"{player.name} has won!!!")
+            self.cleanup()
             self.playing = False
         return sym_num == int(len(self.board))
     
+    def cleanup(self):
+        print("cleanup")
+        for row in range(self.field_size):
+            for column in range(self.field_size):
+                self.board[row][column].setText("")
+
     def won(self):
         print("won")
         
