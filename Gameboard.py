@@ -14,7 +14,7 @@ class Gameboard():
         self.playing = True
     
     def output(self, prompt):
-        print(prompt)
+            print(prompt)
         
     def redraw(self):
         self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]

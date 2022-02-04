@@ -32,6 +32,10 @@ class Player:
         self.icon = icon
         self.budget = budget
         self.current_bet = current_bet
+        
+    
+    def won(self):
+        print("won", self.name)
 
 
 # class CustomButton(QPushButton):
@@ -45,6 +49,8 @@ class Player:
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.fieldsize = 0
+        self.board = []
         self.setupUi(self)
         self.ID = 1
         # self.btn_ReloadQss.clicked.connect(load)
@@ -75,7 +81,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def set_player(self, playerid: int, budget, name, icon):
         if playerid in range(1, 3) and str(budget).isdigit():
-            tick_interval = budget / 10
+            tick_interval = int(budget / 10)
             eval(f"self.sl_player{playerid}.setMaximum(int(budget))")
             eval(f"self.sl_player{playerid}.setTickInterval(tick_interval)")
             eval(f"self.lb_Player{playerid}_budget.setText('Budget: '+str(budget))")
@@ -86,9 +92,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def changeText(self, b: QPushButton, icon: str):
-        self. icon_player_one = self.lb_Player1_icon.text()
+        self.icon_player_one = self.lb_Player1_icon.text()
         self.icon_player_two = self.lb_Player2_icon.text()
-        print(b.text())
         if b.text() == " ":
             
             if self.icon_storage == self.lb_Player1_icon.text():
@@ -96,11 +101,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.icon_storage = self.lb_Player1_icon.text()
             b.setText(self.icon_storage.replace("Icon: ", ""))
+        self.evaluate()    
         self.icon_counter +=1
         if self.icon_counter == 9:
-            print("end")
-            return        
+            self.lb_outputField.setText("Zu ende")
+           
+    def check_sym_num(self, sym_num, player)->bool:
+        if sym_num == int(len(self.board)):
+            player.won()
+            self.output(f"{player.name} has won!!!")
+            self.playing = False
+        return sym_num == int(len(self.board))
+    
+    def won(self):
+        print("won")
+        
+    def output(self, prompt):
+        print(prompt)   
+        
+    def evaluate(self):
+        self.field_size = int(len(self.board))
+        for player in self.playerlist:
+            current_icon = player.icon
+            rows_symbol_counter = 0
+            columns_symbol_counter = 0
+            diag_symbol_counter = 0
+            rev_diag_symbol_counter = 0
             
+            for row in self.board:
+                row = [item.text() for  item in row] # -> ['x','o','x']
+                rows_symbol_counter = row.count(current_icon)
+                if(self.check_sym_num(rows_symbol_counter, player)):
+                    break
+            
+            for column in range(self.field_size):
+                for row in range(self.field_size):
+                    columns_symbol_counter += 1 if self.board[row][column].text() == current_icon else 0
+                    # print(f'c:{column} - r:{row}: {columns_symbol_counter}')
+                if(self.check_sym_num(columns_symbol_counter, player)):
+                    break
+                else: 
+                    columns_symbol_counter = 0
+                
+            for column in range(self.field_size):
+                diag_symbol_counter += 1 if self.board[column][column].text() == current_icon else 0
+                if(self.check_sym_num(diag_symbol_counter, player)):
+                    break
+                else: 
+                    columns_symbol_counter = 0
+            
+            for column in range(self.field_size):
+                rev_diag_symbol_counter += 1 if self.board[column][(self.field_size - 1) - column].text() == current_icon else 0
+                if(self.check_sym_num(rev_diag_symbol_counter, player)):
+                    break
+                else: 
+                    columns_symbol_counter = 0
+        
 
     def draw(self, board: list):
         # print(board)
@@ -154,6 +210,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             containing_layout.addWidget(new_frame)
 
         self.gridLayout_2.addWidget(containing_frame)
+        self.board = board
+
 
 
 
