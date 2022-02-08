@@ -69,12 +69,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def change_slider(self, playerID):
         eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
 
-    def create_new_player(self, addplayerWindow: QMainWindow, ID: int):
+    def create_new_player(self, addplayerWindow: QDialog, ID: int):
         # addplayerWindow.reset_values()
         # addplayerWindow.showWindow(ID)
         dg = addplayerWindow
-        dg.accepted.connect(self.add_player)
-        dg.show()
+        dg.accepted.connect(lambda x=dg.values: self.add_player(x))
+        dg.exec_()
 
     def add_player(self, values):
         print(values)
@@ -225,7 +225,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 class AddPlayerWindow(QDialog, Ui_Dialog):
     
-    accepted = Signal(dict)
+    accepted = Signal(str, str, str)
     
     def __init__(self,*args, **kwargs):
         super().__init__()
@@ -238,6 +238,7 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_playerName.textEdited[str].connect(self.unlock)
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
+        self.values = {}
         
 
     def unlock(self):
@@ -246,24 +247,24 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         else:
             self.btn_commitNewPlayer.setDisabled(True)
             
-    def showWindow(self, player_id: int):
-        self.current_player = player_id
-        if player_id in range(1, 3):
-            self.show()
+    # def showWindow(self, player_id: int):
+    #     self.current_player = player_id
+    #     if player_id in range(1, 3):
+    #         self.show()
 
     def commit_player(self):
         budget = self.lnedit_budget.text()
         name = self.lnedit_playerName.text()
         icon = self.lnedit_icon.text()
         # self.parentWindow.set_player(self.current_player, budget, name, icon)
-        values:dict = {
+        self.values:dict = {
             'name': name, 
             'icon': icon,
             'budget': budget
         }
-        print(values)
-        self.accepted.emit(values)
-        self.accept()
+        print(self.values)
+        self.accepted.emit(name, icon, budget)
+        # self.accept()
 
     def exit_new_player(self):
         self.hide()
