@@ -180,13 +180,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "background: #999999; min-height: 300px; min-width: 300px;max-height: 300px;max-width: 300px;"
         )
         containing_layout = QHBoxLayout(containing_frame)
-        containing_layout.setContentsMargins(8, 0, 0, 0)
+        containing_layout.setContentsMargins(27, 0, 0, 0)
         containing_layout.alignment()
         for b_index, column in enumerate(board):
             new_frame = QFrame(containing_frame)
             # new_frame.setStyleSheet('margin-left: 6px;')
             new_layout = QVBoxLayout(new_frame)
-            new_layout.setContentsMargins(6, 0, 6, 0)
+            new_layout.setContentsMargins(0, 0, 0, 0)
             new_layout.setSpacing(0)
 
             for index, button in enumerate(column):
@@ -195,23 +195,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
                 )
                 board[b_index][index].setStyleSheet(
-                    "font-size: 40px; font: calibri; color: black; background: #ffffff; min-height: 60px;min-width: 60px;max-height: 60px;max-width: 60px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
+                    "font-size: 40px; font: arial; color: black; background: #ffffff; min-height: 60px;min-width: 60px;max-height: 60px;max-width: 60px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
                 )
                 board[b_index][index].setSizePolicy(sizePolicy)
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
 
-                if self.icon == "X":
-                    self.icon = "O"
-                else:
-                    self.icon = "X"
-
                 x = board[b_index][index]
                 x.clicked.connect(
-                    lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(
-                        button, icon
-                    )
-                
-                )
+                    lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(button, icon))
                 new_layout.addWidget(board[b_index][index])
 
             containing_layout.addWidget(new_frame)
