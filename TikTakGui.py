@@ -55,8 +55,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ID = 1
         self.playerlist = [None, None]
         self.icon_storage= "x"
-        # self.btn_e_Player_1.clicked.connect(lambda: self.create_new_player(1))
-        # self.btn_Create_Player_2.clicked.connect(lambda: self.create_new_player(2)  )
         self.sl_player1.setMinimum(0)
         self.set_player(1, randint(100, 10000), "David", "I")
         self.set_player(2, randint(1, 200), "Leon", "O")
@@ -72,11 +70,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # addplayerWindow.reset_values()
         # addplayerWindow.showWindow(ID)
         dg = addplayerWindow
-        dg.accepted.connect(lambda x=dg.values: self.add_player(x))
+        dg.clicked.connect(lambda name, icon, budget, ID=ID: self.add_player(name=name, budget=budget, icon=icon, ID=ID))
         dg.exec_()
 
-    def add_player(self, **kwargs):
-        print(kwargs)
+    def add_player(self,**kwargs):
+        print('add player: ',kwargs)
+        self.set_player(kwargs['ID'], kwargs['budget'], kwargs['name'], kwargs['icon'])
 
     def set_player(self, playerid: int, budget, name, icon):
         if playerid in range(1, 3) and str(budget).isdigit():
@@ -212,14 +211,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.board = board
 
 
-class PlayerValues:
-    """ Description """
-    # values:dict(any)
-    def __init__(self, **kwargs):
-        self.values = kwargs 
-        # self.values = {k:v for k,v in kwargs.items()}
-
-
 class AddPlayerWindow(QDialog, Ui_Dialog):
     
     clicked = Signal(str, str, int,arguments=['name', 'icon', 'budget'])
@@ -235,14 +226,13 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_playerName.textEdited[str].connect(self.unlock)
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
-        self.btn_ReloadQss.clicked.connect(self.load_style)
-        self.values = {}
+        # self.btn_ReloadQss.clicked.connect(self.load_style)
         
     def load_stylesheet(self):
         load_stylesheet()
         
     def unlock(self):
-        if self.lnedit_playerName.text() and self.lnedit_icon.text() and len(self.lnedit_icon.text()) and self.lnedit_budget.text():
+        if len(self.lnedit_playerName.text()) and len(self.lnedit_icon.text()) and len(self.lnedit_icon.text())==1 and len(self.lnedit_budget.text()):
             self.btn_commitNewPlayer.setDisabled(False)
         else:
             self.btn_commitNewPlayer.setDisabled(True)
@@ -254,6 +244,7 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
 
     def commit_player(self):
         budget = self.lnedit_budget.text()
+        budget = int(budget) if budget.isdigit() else 0
         name = self.lnedit_playerName.text()
         icon = self.lnedit_icon.text()
         # self.parentWindow.set_player(self.current_player, budget, name, icon)
@@ -262,9 +253,9 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
             'icon': icon,
             'budget': budget
         }
-        print(values)
         self.clicked.emit(name, icon, budget)
-        # self.accept()
+        
+        self.accept()
 
     def exit_new_player(self):
         self.hide()
