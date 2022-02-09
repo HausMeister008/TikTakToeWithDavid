@@ -53,7 +53,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.board = []
         self.setupUi(self)
         self.ID = 1
-        # self.btn_ReloadQss.clicked.connect(load)
         self.playerlist = [None, None]
         self.icon_storage= "x"
         # self.btn_e_Player_1.clicked.connect(lambda: self.create_new_player(1))
@@ -115,7 +114,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return sym_num == int(len(self.board))
     
     def cleanup(self):
-        self.output("cleanup")
         for row in range(self.field_size):
             for column in range(self.field_size):
                 self.board[row][column].setText(" ")
@@ -180,7 +178,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         containing_frame = QFrame(self.fr_game_board)
         containing_frame.setStyleSheet(
-            "background: #999999; min-height: 300px; min-width: 300px;max-height: 300px;max-width: 300px;"
+            "background: #00161e; min-height: 300px; min-width: 300px;max-height: 300px;max-width: 300px;"
         )
         containing_layout = QHBoxLayout(containing_frame)
         containing_layout.setContentsMargins(27, 0, 0, 0)
@@ -198,7 +196,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
                 )
                 board[b_index][index].setStyleSheet(
-                    "font-size: 40px; font: arial; color: black; background: #ffffff; min-height: 60px;min-width: 60px;max-height: 60px;max-width: 60px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
+                    "font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 60px;min-width: 60px;max-height: 60px;max-width: 60px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
                 )
                 board[b_index][index].setSizePolicy(sizePolicy)
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
@@ -237,7 +235,11 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_playerName.textEdited[str].connect(self.unlock)
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
+        self.btn_ReloadQss.clicked.connect(self.load_style)
         self.values = {}
+        
+    def load_stylesheet(self):
+        load_stylesheet()
         
     def unlock(self):
         if self.lnedit_playerName.text() and self.lnedit_icon.text() and len(self.lnedit_icon.text()) and self.lnedit_budget.text():
