@@ -118,7 +118,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.output("cleanup")
         for row in range(self.field_size):
             for column in range(self.field_size):
-                self.board[row][column].setText("")
+                self.board[row][column].setText(" ")
 
     def won(self):
         print("won")
