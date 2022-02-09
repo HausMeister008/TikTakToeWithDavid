@@ -119,6 +119,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for row in range(self.field_size):
             for column in range(self.field_size):
                 self.board[row][column].setText(" ")
+        self.sl_player1.setValue(0)
+        self.sl_player2.setValue(0)
+        
 
     def won(self):
         print("won")
