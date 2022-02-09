@@ -28,5 +28,5 @@ QPushButton#btn_exitNewPlayer:hover{
     background: #cc0000;
 }
 QPushButton#btn_commitNewPlayer:hover{
-    background: #ffffff;
+    background: #007F0E;
 }
