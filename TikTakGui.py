@@ -1,3 +1,4 @@
+from ast import Delete
 from mimetypes import init
 from operator import truediv
 from random import randint
@@ -18,9 +19,11 @@ from PySide6.QtGui import QCursor
 from PySide6.QtCore import Qt, Signal
 from PySide6 import QtSql
 from Gameboard import Gameboard
+# from GuiGame import GuiGameboard, guiGameboard
 
 from uiFiles.ui_mainWindow import Ui_MainWindow
 from uiFiles.ui_addPlayerDialog import Ui_Dialog
+from time import sleep
 
 
 toggle = 0
@@ -49,12 +52,17 @@ class Player:
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        super(Gameboard).__init__()
         self.fieldsize = 0
         self.board = []
         self.setupUi(self)
+        self.board = []
         self.ID = 1
-        
-        
+        self.happened = 0
+        self.btn_qss_toggle.clicked.connect(lambda : self.switch_qss(MainWindow, AddPlayerWindow))
+        self.btn_qss_toggle.setText("Whitemode")
+        # self.btn_qss_change.clicked.connect(lambda : switch_qss(MainWindow, AddPlayerWindow))
+        # self.btn_qss_change.setText("Whitemode")
         self.playerlist = [None, None]
         self.icon_storage= "x"
         self.sl_player1.setMinimum(0)
@@ -62,11 +70,39 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_player(1, 100, "David", "I")
         self.set_player(2, 150, "Leon", "O")
         self.icon = "X"
+        self.sl_field_size.setMaximum(30)
+        self.sl_field_size.valueChanged.connect(self.redraw)
+        self.field_size = 3
         self.icon_counter = 0
+        self.containing_frame = None
         self.sl_player1.valueChanged.connect(lambda: self.change_slider(1))
         self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
-        self.lp_player1_sl_value.setText("Du musst noch setzten")
+        self.lp_player1_sl_value.setText("Du musst noch setzen")
         self.lp_player2_sl_value.setText("Du musst noch setzen")
+
+
+    def redraw(self):
+        
+        # if self.already > 0:
+        #     for row in range(len(self.board)):
+        #         for column in range(len(self.board)):     
+        #             b = self.board[column][row]               
+        #             b.setStyleSheet("max-height: 0px; max-width: 0px;")
+        
+                    
+        self.field_size = self.sl_field_size.value()
+        positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
+        self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]
+        row = 0 
+        column = 0
+        # self.already += 1
+        for row in range(self.field_size):
+            for column in range(self.field_size):
+                posit = row*self.field_size + column + 1
+                self.board[row].append(str(positions[posit]))
+        self.draw(self.board)
+    
+    
     def change_slider(self, playerID):
         eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
 
@@ -78,12 +114,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dg.exec_()
 
     def add_player(self,**kwargs):
-        print('add player: ',kwargs)
+        # print('add player: ',kwargs)
         self.set_player(kwargs['ID'], kwargs['budget'], kwargs['name'], kwargs['icon'])
 
     def set_player(self, playerid: int, budget, name, icon):
         if playerid in range(1, 3) and str(budget).isdigit():
             tick_interval = int(budget / 10)
+            print(playerid)
             eval(f"self.sl_player{playerid}.setMaximum(int(budget))")
             eval(f"self.sl_player{playerid}.setTickInterval(tick_interval)")
             eval(f"self.lb_Player{playerid}_budget.setText('Budget: '+str(budget))")
@@ -196,50 +233,68 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
 
     def draw(self, board: list):
-        # print(board)
-        for column in range(len(board)):
+        self.positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
+        for column in range(self.field_size):
             r = []
-            for row in range(len(board)):
+            for row in range(self.field_size):
                 r.append(
                     QPushButton(parent=self.fr_game_board, text=board[column][row])
                 )
             board[column] = r
-
-        containing_frame = QFrame(self.fr_game_board)
-        containing_frame.setStyleSheet(
+        
+        if self.happened == 1:
+            for column in range(len(board)):
+                for row in range(len(board)):
+                    self.containing_frame.deleteLater()
+                    self.containing_layout.deleteLater()
+                    
+        self.happened = 1
+        self.containing_frame = QFrame(self.fr_game_board)
+        # containing_frame.deleteLater()
+        self.containing_frame.setStyleSheet(
             "background: #00161e; min-height: 1px; min-width: 1px; "
         )
-        containing_layout = QHBoxLayout(containing_frame)
-        containing_layout.setContentsMargins(27, 0, 10, 0)
-        containing_layout.setSpacing(0)
-        containing_layout.alignment()
+        
+        self.containing_layout = QHBoxLayout(self.containing_frame)
+        self.containing_layout.setContentsMargins(27, 0, 10, 0)
+        self.containing_layout.setSpacing(0)
+        self.containing_layout.alignment()
         for b_index, column in enumerate(board):
-            new_frame = QFrame(containing_frame)
+            self.new_frame = QFrame(self.containing_frame)
             # new_frame.setStyleSheet('margin-left: 6px;')
-            new_layout = QVBoxLayout(new_frame)
-            new_layout.setContentsMargins(5, 5, 5, 5)
-            new_layout.setSpacing(10)
+            self.new_layout = QVBoxLayout(self.new_frame)
+            self.new_layout.setContentsMargins(5, 5, 5, 5)
+            self.new_layout.setSpacing(10)
 
             for index, button in enumerate(column):
                 # print(b_index, index)
-                board[b_index][index].setStyleSheet(
+                self.board[b_index][index].setStyleSheet(
                     "font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
                 )
-                board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
-                board[b_index][index].setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+                self.board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
+                self.board[b_index][index].setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
                 # board[b_index][index].
 
-                x = board[b_index][index]
+                x = self.board[b_index][index]
                 x.clicked.connect(
                     lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(button, icon))
-                new_layout.addWidget(board[b_index][index])
+                self.new_layout.addWidget(board[b_index][index])
 
-            containing_layout.addWidget(new_frame)
+            self.containing_layout.addWidget(self.new_frame)
 
-        self.gridLayout_2.addWidget(containing_frame)
+        self.gridLayout_2.addWidget(self.containing_frame)
         self.board = board
 
-
+    def switch_qss(self, Ptw, Chw):
+        btn = self.btn_qss_toggle
+        if btn.text() == "Darkmode":
+            self.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
+            btn.setText("whitemode")
+            # Chw.setStyleSheet(open("./stylesheet_addPlayer.qss", encoding="utf-8").read())
+        else:
+            self.setStyleSheet(open("./stylesheet_main_white.qss", encoding="utf-8").read())
+            # Chw.setStyleSheet(open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read())
+            btn.setText("Darkmode")
 class AddPlayerWindow(QDialog, Ui_Dialog):
     
     clicked = Signal(str, str, int,arguments=['name', 'icon', 'budget'])
@@ -248,7 +303,6 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         super().__init__()
         self.setupUi(self)
         # load()
-        # self.btn_ReloadQss.clicked.connect(load)
         self.current_player: int = 0
         self.btn_commitNewPlayer.setDisabled(True)
         self.btn_commitNewPlayer.clicked.connect(self.commit_player)
@@ -256,9 +310,7 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
         # self.btn_ReloadQss.clicked.connect(self.load_style)
-        
-    def load_stylesheet(self):
-        load_stylesheet()
+
         
     def unlock(self):
         if len(self.lnedit_playerName.text()) and len(self.lnedit_icon.text()) and len(self.lnedit_icon.text())==1 and len(self.lnedit_budget.text()):
@@ -289,34 +341,9 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
     def exit_new_player(self):
         self.hide()
 
-
-def load_stylesheet():
-    text = frm_main.btn_qss_toggle.text()
-    if text == "darkmode":
-        frm_main.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
-        # frm_addPlayer.setStyleSheet(
-        #     open("./stylesheet_addPlayer.qss", encoding="utf-8").read()
-        # )
-        frm_main.btn_qss_toggle.setText("whitemode")
-    else:
-        frm_main.setStyleSheet(
-            open("./stylesheet_main_white.qss", encoding="utf-8").read()
-        )
-        # frm_addPlayer.setStyleSheet(
-        #     open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read()
-        # )
-        frm_main.btn_qss_toggle.setText("darkmode")
-
-
 if __name__ == "__main__":
-    app = QApplication()
     frm_main = MainWindow()
     frm_addPlayer = AddPlayerWindow(parentWindow=frm_main)
-    frm_addPlayer.hide()
-    # frm_main.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
-    # frm_addPlayer.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
-    load_stylesheet()
-    frm_main.btn_qss_toggle.setText("Whitemode")
-    # frm_main.reload_style_sheets()
+    frm_main.qss_change()
     frm_main.show()
-    app.exec()
+    QApplication.exec()

@@ -1,9 +1,12 @@
 QLabel{
     font-size: 20px;
     font: calibri;
+    font: bold;
 }
 QWidget{
 color: #fff;
+font-size: 15px;
+font-weight: 900;
 }
 QFrame{
     background:#eee;
@@ -38,7 +41,6 @@ QLineEdit{
 
 QPushButton{
     font-size: 23px;
-    font: calibri;
     border-radius: 5px;
     background: #004444;
 }
@@ -59,7 +61,7 @@ QSlider::sub-page:horizontal{
     background: rgb(230, 90, 0);
 }
 QSlider::groove:horizontal{
-    background: orange;
+    background: rgb(20,20,20);
 }
 
 QSlider::handle#sl_player2:hover{

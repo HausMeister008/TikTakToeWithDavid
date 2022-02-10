@@ -6,6 +6,7 @@ from Player import *
 from Gameboard import *
 from TikTakGui import *
 from uiFiles.ui_mainWindow import *
+import math
 class MainWindow(MainWindow):
     def __init__(self):
         super().__init__()
@@ -21,12 +22,24 @@ class MainWindow(MainWindow):
         super().set_player(playerid, budget, name, icon)
             
     
-    
+  
+# class SizeWindow(Ui_Dialog):
+#     def __init__(self, fieldsize:MainWindow):
+#         super(GuiGameboard).__init__()
+#         self.width = int(3)
+#         # GuiGameboard.field_size = self.field_size_maximum()
+
+#     def field_size_maximum(self):
+#         self.sl_field_size.value()
+#         GuiGameboard.field_size = 5
+
 class GuiGameboard(Gameboard):
-    def __init__(self, mainWindow:MainWindow,playerWindow:MainWindow, players: list[str] = ['Alice', 'Bob'], f_size: int = 3):
+    def __init__(self,mainWindow:MainWindow,playerWindow:MainWindow, players: list[str] = ['Alice', 'Bob']):
+        # super(MainWindow).__init__()
         self.mainWindow = mainWindow
         self.playerWindow = playerWindow
-        self.field_size = f_size
+        self.ui_field_size = field_size_limit
+        self.field_size = mainWindow.sl_field_size.value()
         self.players = []
         for p in range(2):
             chosen_icons = []
@@ -34,7 +47,7 @@ class GuiGameboard(Gameboard):
                 chosen_icons.append(player.icon)
             self.players.append(GuiPlayer(gameBoard=self,playerWindow=self.playerWindow, p_name=players[p], chosen_icons=chosen_icons))
         
-        self.positions = {i+1:' ' for i in range(self.field_size**2)}
+        self.positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
         self.playing = True
     
     def reload_style_sheets(self):
@@ -81,13 +94,14 @@ class GuiGameboard(Gameboard):
     def create_player(self, addplayerWindow, id_):
         self.mainWindow.create_new_player(addplayerWindow, id_)
 
-    def redraw(self):
-        self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]
-        for row in range(self.field_size):
-            for column in range(self.field_size):
-                pos = row*self.field_size + column + 1
-                self.board[row].append(str(self.positions[pos]))
-        self.mainWindow.draw(self.board)
+    def redraw(selfy):
+        
+        GuiGameboard.board = [[] for i in range(selfy.field_size)] # für 3x3 -> [[], [], []]
+        for row in range(selfy.field_size):
+            for column in range(selfy.field_size):
+                pos = row*selfy.field_size + column + 1
+                selfy.board[row].append(str(selfy.positions[pos]))
+        selfy.mainWindow.draw(selfy.board)
         
 class GuiPlayer(Player):
     def __init__(self,gameBoard:GuiGameboard, playerWindow, p_name: str, chosen_icons: list = ...):
@@ -106,8 +120,7 @@ class GuiPlayer(Player):
         creating new Player by opening GUI input terminal
         """
         self.gameBoard.get_player()
-
-
+      
 
 def load():
     mainWindow.setStyleSheet(open('./stylesheet_main.qss', encoding="utf-8").read())
@@ -116,24 +129,17 @@ def load():
 if __name__ == "__main__":
     app = QApplication()
     mainWindow = MainWindow()
-    
     addPlayerWindow = AddPlayerWindow(parentWindow = mainWindow)
     guiGameboard = GuiGameboard(playerWindow=addPlayerWindow, mainWindow=mainWindow)
-    mainWindow.btn_Create_Player_1.clicked.connect(
-        lambda: guiGameboard.create_player(addPlayerWindow, 1)
-        )
+    mainWindow.btn_Create_Player_1.clicked.connect(lambda: guiGameboard.create_player(addPlayerWindow, 1))
     
-    mainWindow.btn_qss_reload.clicked.connect(
-        guiGameboard.reload_style_sheets
-        )
+    mainWindow.btn_qss_reload.clicked.connect(guiGameboard.reload_style_sheets)
     
     # MainWindow.btn_qss_toggle.clicked.connect(guiGameboard.load_stylesheet())
-    mainWindow.btn_Create_Player_2.clicked.connect(
-        lambda: guiGameboard.create_player(addPlayerWindow, 2)
-        )
+    mainWindow.btn_Create_Player_2.clicked.connect(lambda: guiGameboard.create_player(addPlayerWindow, 2))
     guiPlayer1 = GuiPlayer(gameBoard=guiGameboard,playerWindow=addPlayerWindow, p_name='Leon')
     guiPlayer2 = GuiPlayer(gameBoard=guiGameboard, playerWindow=addPlayerWindow, p_name='david')
-    guiGameboard.redraw()
+    # guiGameboard.redraw()
     mainWindow.show()
     load()
     app.exec()
