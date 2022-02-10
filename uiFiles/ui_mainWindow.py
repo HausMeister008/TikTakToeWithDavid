@@ -24,16 +24,18 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(924, 578)
+        MainWindow.resize(988, 619)
+        sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setMinimumSize(QSize(800, 500))
         MainWindow.setStyleSheet(u"")
         self.actionQuit = QAction(MainWindow)
         self.actionQuit.setObjectName(u"actionQuit")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
         self.centralwidget.setSizePolicy(sizePolicy)
         font = QFont()
@@ -201,6 +203,13 @@ class Ui_MainWindow(object):
         self.lb_outputField.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_3.addWidget(self.lb_outputField)
+
+        self.sl_field_size = QSlider(self.fr_mainContent)
+        self.sl_field_size.setObjectName(u"sl_field_size")
+        self.sl_field_size.setMinimumSize(QSize(0, 10))
+        self.sl_field_size.setOrientation(Qt.Horizontal)
+
+        self.verticalLayout_3.addWidget(self.sl_field_size)
 
 
         self.horizontalLayout.addWidget(self.fr_mainContent)

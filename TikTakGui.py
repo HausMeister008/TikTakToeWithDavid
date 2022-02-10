@@ -35,7 +35,7 @@ class Player:
         
     
     def won(self):
-        print("won", self.name)
+        print("won", self.name, "halo")
 
 
 # class CustomButton(QPushButton):
@@ -53,16 +53,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.board = []
         self.setupUi(self)
         self.ID = 1
+        
+        
         self.playerlist = [None, None]
         self.icon_storage= "x"
         self.sl_player1.setMinimum(0)
-        self.set_player(1, randint(100, 10000), "David", "I")
-        self.set_player(2, randint(1, 200), "Leon", "O")
+        self.sl_player2.setMinimum(0)
+        self.set_player(1, 100, "David", "I")
+        self.set_player(2, 150, "Leon", "O")
         self.icon = "X"
         self.icon_counter = 0
         self.sl_player1.valueChanged.connect(lambda: self.change_slider(1))
         self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
-        
+        self.lp_player1_sl_value.setText("Du musst noch setzten")
+        self.lp_player2_sl_value.setText("Du musst noch setzen")
     def change_slider(self, playerID):
         eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
 
@@ -90,24 +94,52 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def changeText(self, b: QPushButton, icon: str):
-        self.icon_player_one = self.lb_Player1_icon.text()
-        self.icon_player_two = self.lb_Player2_icon.text()
-        if b.text() == " ":
-            
-            if self.icon_storage == self.lb_Player1_icon.text():
-                    self.icon_storage = self.lb_Player2_icon.text()
-            else:
-                self.icon_storage = self.lb_Player1_icon.text()
-            b.setText(self.icon_storage.replace("Icon: ", ""))
-        self.evaluate()    
-        self.icon_counter +=1
-        if self.icon_counter == 9:
-            self.lb_outputField.setText("Zu ende")
-           
+        if self.sl_player1.value() != 0:
+            if self.sl_player2.value() != 0:
+                self.icon_player_one = self.lb_Player1_icon.text()
+                self.icon_player_two = self.lb_Player2_icon.text()
+                if b.text() == " ":
+                    
+                    if self.icon_storage == self.lb_Player1_icon.text():
+                            self.icon_storage = self.lb_Player2_icon.text()
+                    else:
+                        self.icon_storage = self.lb_Player1_icon.text()
+                    b.setText(self.icon_storage.replace("Icon: ", ""))
+                self.evaluate()    
+                self.icon_counter +=1
+                if self.icon_counter == 9:
+                    self.lb_outputField.setText("Zu ende")
+        
     def check_sym_num(self, sym_num, player)->bool:
         if sym_num == int(len(self.board)):
-            player.won()
-            self.output(f"{player.name} has won!!!")
+
+            self.lb_outputField.setStyleSheet("color: red")
+            if player.name == self.lb_Player1_name.text().strip("Name: "):
+                player.budget += int(self.sl_player2.value())
+                self.lb_Player1_budget.setText('Budget: '+str(player.budget))
+                self.sl_player1.setMaximum(player.budget)
+                budget2 = int(self.lb_Player2_budget.text().strip("Budget: ")) - self.sl_player2.value()
+                self.lb_Player2_budget.setText("Budet: "+str(budget2))
+                self.sl_player2.setMaximum(budget2)
+                if int(self.lb_Player2_budget.text().strip("Budget: ")) <= 0:
+                    self.lb_outputField.setText(self.lb_Player1_name.text().strip("Name: ")+ " hat verloren")
+                
+                # self.lb_Player2_budget.setText('Budget: '+int(keeper))
+                
+                
+            #  def set_player(self, playerid: int, budget, name, icon):
+                 
+            if player.name == self.lb_Player2_name.text().strip("Name: "):
+                player.budget += int(self.sl_player1.value())
+                self.lb_Player2_budget.setText('Budget: '+str(player.budget))
+                self.sl_player2.setMaximum(player.budget)
+                budget2 = int(self.lb_Player1_budget.text().strip("Budget: ")) - self.sl_player1.value()
+                self.lb_Player1_budget.setText("Budet: "+str(budget2))
+                self.sl_player1.setMaximum(budget2)
+                # self.lb_Player2_budget.setText('Budget: '+int(keeper))
+                if int(self.lb_Player1_budget.text().strip("Budget: ")) <= 0:
+                    self.lb_outputField.setText(self.lb_Player1_name.text().strip("Name: ")+ " hat verloren")
+                
             self.cleanup()
             self.playing = False
         return sym_num == int(len(self.board))
@@ -120,8 +152,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sl_player2.setValue(0)
         
 
-    def won(self):
-        print("won")
         
     def output(self, prompt):
         print(prompt)   
@@ -134,7 +164,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             columns_symbol_counter = 0
             diag_symbol_counter = 0
             rev_diag_symbol_counter = 0
-            
             for row in self.board:
                 row = [item.text() for  item in row] # -> ['x','o','x']
                 rows_symbol_counter = row.count(current_icon)
@@ -144,6 +173,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for column in range(self.field_size):
                 for row in range(self.field_size):
                     columns_symbol_counter += 1 if self.board[row][column].text() == current_icon else 0
+                    # print(self.board[row][column].text())
                     # print(f'c:{column} - r:{row}: {columns_symbol_counter}')
                 if(self.check_sym_num(columns_symbol_counter, player)):
                     break
@@ -177,28 +207,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         containing_frame = QFrame(self.fr_game_board)
         containing_frame.setStyleSheet(
-            "background: #00161e; min-height: 300px; min-width: 300px;max-height: 300px;max-width: 300px;"
+            "background: #00161e; min-height: 1px; min-width: 1px; "
         )
         containing_layout = QHBoxLayout(containing_frame)
-        containing_layout.setContentsMargins(27, 0, 0, 0)
+        containing_layout.setContentsMargins(27, 0, 10, 0)
+        containing_layout.setSpacing(0)
         containing_layout.alignment()
         for b_index, column in enumerate(board):
             new_frame = QFrame(containing_frame)
             # new_frame.setStyleSheet('margin-left: 6px;')
             new_layout = QVBoxLayout(new_frame)
-            new_layout.setContentsMargins(0, 0, 0, 0)
-            new_layout.setSpacing(0)
+            new_layout.setContentsMargins(5, 5, 5, 5)
+            new_layout.setSpacing(10)
 
             for index, button in enumerate(column):
                 # print(b_index, index)
-                sizePolicy = QSizePolicy(
-                    QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding
-                )
                 board[b_index][index].setStyleSheet(
-                    "font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 60px;min-width: 60px;max-height: 60px;max-width: 60px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
+                    "font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
                 )
-                board[b_index][index].setSizePolicy(sizePolicy)
                 board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
+                board[b_index][index].setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+                # board[b_index][index].
 
                 x = board[b_index][index]
                 x.clicked.connect(

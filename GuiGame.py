@@ -5,7 +5,7 @@ from csv import field_size_limit
 from Player import * 
 from Gameboard import *
 from TikTakGui import *
-
+from uiFiles.ui_mainWindow import *
 class MainWindow(MainWindow):
     def __init__(self):
         super().__init__()
@@ -133,7 +133,6 @@ if __name__ == "__main__":
         )
     guiPlayer1 = GuiPlayer(gameBoard=guiGameboard,playerWindow=addPlayerWindow, p_name='Leon')
     guiPlayer2 = GuiPlayer(gameBoard=guiGameboard, playerWindow=addPlayerWindow, p_name='david')
-    guiPlayer1.output("test")
     guiGameboard.redraw()
     mainWindow.show()
     load()
