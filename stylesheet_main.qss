@@ -50,12 +50,18 @@ QSlider::handle:horizontal{
     margin-right: -10px;
     margin-left: -10px;
 }
-QSlider::sub-page:horizontal{
+/* QSlider::sub-page:horizontal{
     background: rgb(200, 60, 0);
 }
 QSlider::groove:horizontal{
     background: rgb(230, 90, 0);
     height: 23px;
+} */
+QSlider::sub-page:horizontal{
+    background: rgb(10,10,10);
+}
+QSlider::groove:horizontal{
+    background: rgb(20,20,20);
 }
 QPushButton#btn_qss_reload{
     margin-left: 10px;

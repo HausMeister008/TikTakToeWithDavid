@@ -1,8 +1,10 @@
 from ast import Delete
 from mimetypes import init
 from operator import truediv
+from pickle import TRUE
 from random import randint
 from tkinter import CENTER
+from tkinter.tix import COLUMN
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -58,7 +60,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.board = []
         self.ID = 1
-        self.happened = 0
+        self.happened = False
         self.btn_qss_toggle.clicked.connect(lambda : self.switch_qss(MainWindow, AddPlayerWindow))
         self.btn_qss_toggle.setText("Whitemode")
         # self.btn_qss_change.clicked.connect(lambda : switch_qss(MainWindow, AddPlayerWindow))
@@ -71,7 +73,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_player(2, 150, "Leon", "O")
         self.icon = "X"
         self.sl_field_size.setMaximum(30)
-        self.sl_field_size.valueChanged.connect(self.redraw)
+        self.sl_field_size.setValue(10)
+        self.btn_render.clicked.connect(self.redraw)
         self.field_size = 3
         self.icon_counter = 0
         self.containing_frame = None
@@ -79,17 +82,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
         self.lp_player1_sl_value.setText("Du musst noch setzen")
         self.lp_player2_sl_value.setText("Du musst noch setzen")
+        # self.sl_field_size.setValue(1)
+        self.sl_player1.setValue(10)
+        self.sl_player2.setValue(10)
 
 
     def redraw(self):
-        
-        # if self.already > 0:
-        #     for row in range(len(self.board)):
-        #         for column in range(len(self.board)):     
-        #             b = self.board[column][row]               
-        #             b.setStyleSheet("max-height: 0px; max-width: 0px;")
-        
-                    
         self.field_size = self.sl_field_size.value()
         positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
         self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]
@@ -102,6 +100,53 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.board[row].append(str(positions[posit]))
         self.draw(self.board)
     
+    def draw(self, board: list):
+        self.positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
+        if self.happened == 1:
+            for b_index, column in enumerate(board):
+                for index, button in enumerate(column):
+                    self.gridLayout_2.removeWidget(self.containing_frame)
+            
+
+        for column in range(self.field_size):
+            r = []
+            for row in range(self.field_size):
+                r.append(QPushButton(parent=self.fr_game_board, text=self.board[column][row]))
+            board[column] = r
+        # self.board[all][all].hide()
+        print(self.happened)
+        self.happened = 1
+        print(self.happened)
+        self.containing_frame = QFrame(self.fr_game_board)
+        self.containing_frame.setStyleSheet("background: #00161e; min-height: 1px; min-width: 1px; ")
+        self.containing_layout = QHBoxLayout(self.containing_frame)
+        # self.containing_layout.setContentsMargins(27, 0, 10, 0)
+        self.containing_layout.setSpacing(0)
+        self.containing_layout.alignment()
+        for b_index, column in enumerate(board):
+            self.new_frame = QFrame(self.containing_frame)
+            # new_frame.setStyleSheet('margin-left: 6px;')
+            self.new_layout = QVBoxLayout(self.new_frame)
+            self.new_layout.setContentsMargins(5, 5, 5, 5)
+            self.new_layout.setSpacing(10)
+
+            for index, button in enumerate(column):
+                # print(b_index, index)
+                self.board[b_index][index].setStyleSheet("font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; ")
+                self.board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
+                self.board[b_index][index].setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
+                # board[b_index][index].
+
+                x = self.board[b_index][index]
+                x.clicked.connect(lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(button, icon))
+                self.new_layout.addWidget(board[b_index][index])
+
+            self.containing_layout.addWidget(self.new_frame)
+        self.containing_frame.setStyleSheet("background: hsl(192, 47%, 5%)")
+        self.gridLayout_2.addWidget(self.containing_frame)
+        
+        self.board = board
+
     
     def change_slider(self, playerID):
         eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
@@ -120,7 +165,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def set_player(self, playerid: int, budget, name, icon):
         if playerid in range(1, 3) and str(budget).isdigit():
             tick_interval = int(budget / 10)
-            print(playerid)
             eval(f"self.sl_player{playerid}.setMaximum(int(budget))")
             eval(f"self.sl_player{playerid}.setTickInterval(tick_interval)")
             eval(f"self.lb_Player{playerid}_budget.setText('Budget: '+str(budget))")
@@ -144,20 +188,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     b.setText(self.icon_storage.replace("Icon: ", ""))
                 self.evaluate()    
                 self.icon_counter +=1
-                if self.icon_counter == 9:
-                    self.lb_outputField.setText("Zu ende")
-        
-    def check_sym_num(self, sym_num, player)->bool:
-        if sym_num == int(len(self.board)):
 
+    def check_sym_num(self, sym_num, player)->bool:
+        if sym_num == int(self.field_size):
             self.lb_outputField.setStyleSheet("color: red")
             if player.name == self.lb_Player1_name.text().strip("Name: "):
-                player.budget += int(self.sl_player2.value())
+                player.budget = int(self.lb_Player1_budget.text().strip("Budget: ")) + self.sl_player2.value()
                 self.lb_Player1_budget.setText('Budget: '+str(player.budget))
                 self.sl_player1.setMaximum(player.budget)
-                budget2 = int(self.lb_Player2_budget.text().strip("Budget: ")) - self.sl_player2.value()
-                self.lb_Player2_budget.setText("Budet: "+str(budget2))
-                self.sl_player2.setMaximum(budget2)
+                budgettwo = int(self.lb_Player2_budget.text().strip("Budget: ")) - self.sl_player2.value()
+                self.lb_Player2_budget.setText("Budet: "+str(budgettwo))
+                self.sl_player2.setMaximum(budgettwo)
                 if int(self.lb_Player2_budget.text().strip("Budget: ")) <= 0:
                     self.lb_outputField.setText(self.lb_Player1_name.text().strip("Name: ")+ " hat verloren")
                 
@@ -167,16 +208,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #  def set_player(self, playerid: int, budget, name, icon):
                  
             if player.name == self.lb_Player2_name.text().strip("Name: "):
-                player.budget += int(self.sl_player1.value())
+                player.budget = int(self.lb_Player2_budget.text().strip("Budget: ")) + self.sl_player1.value()
                 self.lb_Player2_budget.setText('Budget: '+str(player.budget))
                 self.sl_player2.setMaximum(player.budget)
-                budget2 = int(self.lb_Player1_budget.text().strip("Budget: ")) - self.sl_player1.value()
-                self.lb_Player1_budget.setText("Budet: "+str(budget2))
-                self.sl_player1.setMaximum(budget2)
-                # self.lb_Player2_budget.setText('Budget: '+int(keeper))
+                budgettwo = int(self.lb_Player1_budget.text().strip("Budget: ")) - self.sl_player2.value()
+                self.lb_Player1_budget.setText("Budet: "+str(budgettwo))
+                self.sl_player1.setMaximum(budgettwo)
                 if int(self.lb_Player1_budget.text().strip("Budget: ")) <= 0:
-                    self.lb_outputField.setText(self.lb_Player1_name.text().strip("Name: ")+ " hat verloren")
+                    self.lb_outputField.setText(self.lb_Player2_name.text().strip("Name: ")+ " hat verloren")
                 
+            self.lb_outputField.setStyleSheet("color: Red; Font: Arial;")
+            self.lb_outputField.setText((player.name)+str(" has won") )
             self.cleanup()
             self.playing = False
         return sym_num == int(len(self.board))
@@ -232,58 +274,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     columns_symbol_counter = 0
         
 
-    def draw(self, board: list):
-        self.positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
-        for column in range(self.field_size):
-            r = []
-            for row in range(self.field_size):
-                r.append(
-                    QPushButton(parent=self.fr_game_board, text=board[column][row])
-                )
-            board[column] = r
-        
-        if self.happened == 1:
-            for column in range(len(board)):
-                for row in range(len(board)):
-                    self.containing_frame.deleteLater()
-                    self.containing_layout.deleteLater()
-                    
-        self.happened = 1
-        self.containing_frame = QFrame(self.fr_game_board)
-        # containing_frame.deleteLater()
-        self.containing_frame.setStyleSheet(
-            "background: #00161e; min-height: 1px; min-width: 1px; "
-        )
-        
-        self.containing_layout = QHBoxLayout(self.containing_frame)
-        self.containing_layout.setContentsMargins(27, 0, 10, 0)
-        self.containing_layout.setSpacing(0)
-        self.containing_layout.alignment()
-        for b_index, column in enumerate(board):
-            self.new_frame = QFrame(self.containing_frame)
-            # new_frame.setStyleSheet('margin-left: 6px;')
-            self.new_layout = QVBoxLayout(self.new_frame)
-            self.new_layout.setContentsMargins(5, 5, 5, 5)
-            self.new_layout.setSpacing(10)
-
-            for index, button in enumerate(column):
-                # print(b_index, index)
-                self.board[b_index][index].setStyleSheet(
-                    "font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; "
-                )
-                self.board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
-                self.board[b_index][index].setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-                # board[b_index][index].
-
-                x = self.board[b_index][index]
-                x.clicked.connect(
-                    lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(button, icon))
-                self.new_layout.addWidget(board[b_index][index])
-
-            self.containing_layout.addWidget(self.new_frame)
-
-        self.gridLayout_2.addWidget(self.containing_frame)
-        self.board = board
 
     def switch_qss(self, Ptw, Chw):
         btn = self.btn_qss_toggle

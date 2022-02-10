@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(988, 619)
+        MainWindow.resize(1326, 992)
         sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -204,14 +204,36 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.lb_outputField)
 
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.sl_field_size = QSlider(self.fr_mainContent)
         self.sl_field_size.setObjectName(u"sl_field_size")
-        self.sl_field_size.setMinimumSize(QSize(0, 10))
+        sizePolicy3 = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.sl_field_size.sizePolicy().hasHeightForWidth())
+        self.sl_field_size.setSizePolicy(sizePolicy3)
+        self.sl_field_size.setMinimumSize(QSize(0, 20))
+        self.sl_field_size.setMaximumSize(QSize(16777215, 50))
         self.sl_field_size.setMaximum(18)
         self.sl_field_size.setPageStep(1)
+        self.sl_field_size.setValue(4)
         self.sl_field_size.setOrientation(Qt.Horizontal)
 
-        self.verticalLayout_3.addWidget(self.sl_field_size)
+        self.horizontalLayout_2.addWidget(self.sl_field_size)
+
+        self.btn_render = QPushButton(self.fr_mainContent)
+        self.btn_render.setObjectName(u"btn_render")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.btn_render.sizePolicy().hasHeightForWidth())
+        self.btn_render.setSizePolicy(sizePolicy4)
+
+        self.horizontalLayout_2.addWidget(self.btn_render)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
 
         self.horizontalLayout.addWidget(self.fr_mainContent)
@@ -329,6 +351,7 @@ class Ui_MainWindow(object):
         self.btn_qss_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle Mode", None))
         self.btn_qss_reload.setText(QCoreApplication.translate("MainWindow", u"Reload QSS", None))
         self.lb_outputField.setText("")
+        self.btn_render.setText(QCoreApplication.translate("MainWindow", u"Render", None))
         self.lb_Player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.lb_Player2_name.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
         self.lb_Player2_budget.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))
