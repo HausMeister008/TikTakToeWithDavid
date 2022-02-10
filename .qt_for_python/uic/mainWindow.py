@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1326, 992)
+        MainWindow.resize(1232, 992)
         sizePolicy = QSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -105,6 +105,7 @@ class Ui_MainWindow(object):
 
         self.sl_player1 = QSlider(self.fr_player1)
         self.sl_player1.setObjectName(u"sl_player1")
+        self.sl_player1.setMinimumSize(QSize(0, 50))
         self.sl_player1.setOrientation(Qt.Horizontal)
 
         self.verticalLayout_2.addWidget(self.sl_player1)
@@ -214,10 +215,11 @@ class Ui_MainWindow(object):
         sizePolicy3.setHeightForWidth(self.sl_field_size.sizePolicy().hasHeightForWidth())
         self.sl_field_size.setSizePolicy(sizePolicy3)
         self.sl_field_size.setMinimumSize(QSize(0, 20))
-        self.sl_field_size.setMaximumSize(QSize(16777215, 50))
+        self.sl_field_size.setMaximumSize(QSize(16777215, 75))
         self.sl_field_size.setMaximum(18)
+        self.sl_field_size.setSingleStep(1)
         self.sl_field_size.setPageStep(1)
-        self.sl_field_size.setValue(4)
+        self.sl_field_size.setValue(1)
         self.sl_field_size.setOrientation(Qt.Horizontal)
 
         self.horizontalLayout_2.addWidget(self.sl_field_size)
@@ -229,6 +231,8 @@ class Ui_MainWindow(object):
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.btn_render.sizePolicy().hasHeightForWidth())
         self.btn_render.setSizePolicy(sizePolicy4)
+        self.btn_render.setMinimumSize(QSize(0, 75))
+        self.btn_render.setMaximumSize(QSize(16777215, 75))
 
         self.horizontalLayout_2.addWidget(self.btn_render)
 
@@ -287,6 +291,8 @@ class Ui_MainWindow(object):
 
         self.sl_player2 = QSlider(self.fr_player2)
         self.sl_player2.setObjectName(u"sl_player2")
+        self.sl_player2.setMinimumSize(QSize(0, 50))
+        self.sl_player2.setValue(0)
         self.sl_player2.setOrientation(Qt.Horizontal)
 
         self.verticalLayout.addWidget(self.sl_player2)

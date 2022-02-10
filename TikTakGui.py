@@ -1,4 +1,5 @@
 from ast import Delete
+from dataclasses import field
 from mimetypes import init
 from operator import truediv
 from pickle import TRUE
@@ -37,18 +38,7 @@ class Player:
         self.icon = icon
         self.budget = budget
         self.current_bet = current_bet
-        
-    
-    def won(self):
-        print("won", self.name, "halo")
 
-
-# class CustomButton(QPushButton):
-#     def __init__():
-#         super().__init__()
-
-#     def setIcon(self, icon):
-#         pass
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -63,17 +53,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.happened = False
         self.btn_qss_toggle.clicked.connect(lambda : self.switch_qss(MainWindow, AddPlayerWindow))
         self.btn_qss_toggle.setText("Whitemode")
-        # self.btn_qss_change.clicked.connect(lambda : switch_qss(MainWindow, AddPlayerWindow))
-        # self.btn_qss_change.setText("Whitemode")
         self.playerlist = [None, None]
         self.icon_storage= "x"
         self.sl_player1.setMinimum(0)
         self.sl_player2.setMinimum(0)
         self.set_player(1, 100, "David", "I")
-        self.set_player(2, 150, "Leon", "O")
+        self.set_player(2, 100, "Leon", "O")
         self.icon = "X"
-        self.sl_field_size.setMaximum(30)
-        self.sl_field_size.setValue(10)
         self.btn_render.clicked.connect(self.redraw)
         self.field_size = 3
         self.icon_counter = 0
@@ -82,13 +68,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
         self.lp_player1_sl_value.setText("Du musst noch setzen")
         self.lp_player2_sl_value.setText("Du musst noch setzen")
-        # self.sl_field_size.setValue(1)
-        self.sl_player1.setValue(10)
-        self.sl_player2.setValue(10)
+        self.btn_qss_reload.clicked.connect(self.reload_style)
 
+    def reload_style(self):
+        status = self.btn_qss_toggle.text()
+        if status == "Whitemode":
+            self.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
+            # Chw.setStyleSheet(open("./stylesheet_addPlayer.qss", encoding="utf-8").read())
+        else:
+            self.setStyleSheet(open("./stylesheet_main_white.qss", encoding="utf-8").read())
+            # Chw.setStyleSheet(open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read())
+
+        
 
     def redraw(self):
-        self.field_size = self.sl_field_size.value()
+        # if  (self.sl_field_size.value()% 2):
+        #     self.field_size = self.sl_field_size.value()
+        # else: self.field_size = self.sl_field_size.value() + 1
+        self.field_size = self.sl_field_size.value() * 2 + 1
+
         positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
         self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]
         row = 0 
@@ -113,34 +111,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for row in range(self.field_size):
                 r.append(QPushButton(parent=self.fr_game_board, text=self.board[column][row]))
             board[column] = r
-        # self.board[all][all].hide()
-        print(self.happened)
         self.happened = 1
-        print(self.happened)
         self.containing_frame = QFrame(self.fr_game_board)
         self.containing_frame.setStyleSheet("background: #00161e; min-height: 1px; min-width: 1px; ")
         self.containing_layout = QHBoxLayout(self.containing_frame)
-        # self.containing_layout.setContentsMargins(27, 0, 10, 0)
-        self.containing_layout.setSpacing(0)
-        self.containing_layout.alignment()
+        self.containing_layout.setSpacing(10)
         for b_index, column in enumerate(board):
             self.new_frame = QFrame(self.containing_frame)
-            # new_frame.setStyleSheet('margin-left: 6px;')
             self.new_layout = QVBoxLayout(self.new_frame)
-            self.new_layout.setContentsMargins(5, 5, 5, 5)
-            self.new_layout.setSpacing(10)
-
+            self.new_layout.setSpacing(45 / self.field_size)
             for index, button in enumerate(column):
-                # print(b_index, index)
                 self.board[b_index][index].setStyleSheet("font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; ")
                 self.board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
                 self.board[b_index][index].setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-                # board[b_index][index].
-
                 x = self.board[b_index][index]
                 x.clicked.connect(lambda checked=x.isChecked(), button=x, icon=self.icon: self.changeText(button, icon))
                 self.new_layout.addWidget(board[b_index][index])
-
             self.containing_layout.addWidget(self.new_frame)
         self.containing_frame.setStyleSheet("background: hsl(192, 47%, 5%)")
         self.gridLayout_2.addWidget(self.containing_frame)
@@ -151,11 +137,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def change_slider(self, playerID):
         eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
 
-    def create_new_player(self, addplayerWindow: QDialog, ID: int):
+    def create_new_player(self, addplayerWindow: QDialog, IDs: int):
         # addplayerWindow.reset_values()
         # addplayerWindow.showWindow(ID)
         dg = addplayerWindow
-        dg.clicked.connect(lambda name, icon, budget, ID=ID: self.add_player(name=name, budget=budget, icon=icon, ID=ID))
+        dg.clicked.connect(lambda name, icon, budget, ID=IDs: self.add_player(name=name, budget=budget, icon=icon, ID=IDs))
         dg.exec_()
 
     def add_player(self,**kwargs):
@@ -180,12 +166,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.icon_player_one = self.lb_Player1_icon.text()
                 self.icon_player_two = self.lb_Player2_icon.text()
                 if b.text() == " ":
-                    
-                    if self.icon_storage == self.lb_Player1_icon.text():
-                            self.icon_storage = self.lb_Player2_icon.text()
-                    else:
+                   if self.icon_storage == self.lb_Player1_icon.text():
+                       self.icon_storage = self.lb_Player2_icon.text()
+                   else:
                         self.icon_storage = self.lb_Player1_icon.text()
-                    b.setText(self.icon_storage.replace("Icon: ", ""))
+                   b.setText(self.icon_storage.replace("Icon: ", ""))
                 self.evaluate()    
                 self.icon_counter +=1
 
@@ -299,7 +284,6 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_playerName.textEdited[str].connect(self.unlock)
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
-        # self.btn_ReloadQss.clicked.connect(self.load_style)
 
         
     def unlock(self):

@@ -57,8 +57,8 @@ QSlider::handle:horizontal{
     margin-right: -10px;
     margin-left: -10px;
 }
-QSlider::sub-page:horizontal{
-    background: rgb(230, 90, 0);
+QSlider::sub-page:horizontal{    
+    background: rgb(10,10,10);
 }
 QSlider::groove:horizontal{
     background: rgb(20,20,20);
