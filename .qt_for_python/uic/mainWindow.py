@@ -187,11 +187,6 @@ class Ui_MainWindow(object):
 
         self.qss_change.addWidget(self.btn_qss_toggle)
 
-        self.btn_qss_reload = QPushButton(self.fr_css_modes)
-        self.btn_qss_reload.setObjectName(u"btn_qss_reload")
-
-        self.qss_change.addWidget(self.btn_qss_reload)
-
 
         self.verticalLayout_3.addWidget(self.fr_css_modes)
 
@@ -355,7 +350,6 @@ class Ui_MainWindow(object):
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
         self.btn_qss_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle Mode", None))
-        self.btn_qss_reload.setText(QCoreApplication.translate("MainWindow", u"Reload QSS", None))
         self.lb_outputField.setText("")
         self.btn_render.setText(QCoreApplication.translate("MainWindow", u"Render", None))
         self.lb_Player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))

@@ -68,17 +68,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
         self.lp_player1_sl_value.setText("Du musst noch setzen")
         self.lp_player2_sl_value.setText("Du musst noch setzen")
-        self.btn_qss_reload.clicked.connect(self.reload_style)
-
-    def reload_style(self):
-        status = self.btn_qss_toggle.text()
-        if status == "Whitemode":
-            self.setStyleSheet(open("./stylesheet_main.qss", encoding="utf-8").read())
-            # Chw.setStyleSheet(open("./stylesheet_addPlayer.qss", encoding="utf-8").read())
-        else:
-            self.setStyleSheet(open("./stylesheet_main_white.qss", encoding="utf-8").read())
-            # Chw.setStyleSheet(open("./stylesheet_addPlayer_white.qss", encoding="utf-8").read())
-
         
 
     def redraw(self):
