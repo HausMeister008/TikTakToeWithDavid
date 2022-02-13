@@ -126,12 +126,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def change_slider(self, playerID):
         eval(f"self.lp_player{playerID}_sl_value.setText(str(self.sl_player{playerID}.value()))")
 
-    def create_new_player(self, addplayerWindow: QDialog, IDs: int):
+    def create_new_player(self, IDs: int):
         # addplayerWindow.reset_values()
         # addplayerWindow.showWindow(ID)
-        dg = addplayerWindow
+        dg = AddPlayerWindow()
+        dg.setStyleSheet(open('./stylesheet_addPlayer.qss', encoding="utf-8").read())
         dg.clicked.connect(lambda name, icon, budget, ID=IDs: self.add_player(name=name, budget=budget, icon=icon, ID=IDs))
         dg.exec_()
+        
 
     def add_player(self,**kwargs):
         # print('add player: ',kwargs)
@@ -292,11 +294,6 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         name = self.lnedit_playerName.text()
         icon = self.lnedit_icon.text()
         # self.parentWindow.set_player(self.current_player, budget, name, icon)
-        values:dict = {
-            'name': name, 
-            'icon': icon,
-            'budget': budget
-        }
         self.clicked.emit(name, icon, budget)
         
         self.accept()
