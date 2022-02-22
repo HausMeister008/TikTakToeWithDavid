@@ -384,31 +384,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QFrame" name="fr_css_modes">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>50</height>
-            </size>
-           </property>
-           <layout class="QHBoxLayout" name="qss_change">
-            <item>
-             <widget class="QPushButton" name="btn_qss_toggle">
-              <property name="text">
-               <string>Toggle Mode</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="lb_outputField">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -437,6 +412,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="btn_qss_toggle">
+           <property name="text">
+            <string>Toggle Mode</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QSlider" name="sl_field_size">
@@ -459,7 +441,7 @@
               </size>
              </property>
              <property name="maximum">
-              <number>18</number>
+              <number>13</number>
              </property>
              <property name="singleStep">
               <number>1</number>

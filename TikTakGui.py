@@ -57,6 +57,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.icon_storage= "x"
         self.sl_player1.setMinimum(0)
         self.sl_player2.setMinimum(0)
+        self.total_budget = 0
         self.set_player(1, 100, "David", "I")
         self.set_player(2, 100, "Leon", "O")
         self.icon = "X"
@@ -104,11 +105,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.containing_frame = QFrame(self.fr_game_board)
         self.containing_frame.setStyleSheet("background: #00161e; min-height: 1px; min-width: 1px; ")
         self.containing_layout = QHBoxLayout(self.containing_frame)
-        self.containing_layout.setSpacing(10)
+        spacing = (10^(self.field_size * self.field_size))
+        self.containing_layout.setSpacing(spacing)
         for b_index, column in enumerate(board):
             self.new_frame = QFrame(self.containing_frame)
             self.new_layout = QVBoxLayout(self.new_frame)
-            self.new_layout.setSpacing(45 / self.field_size)
+            self.new_layout.setSpacing(spacing * 4)
             for index, button in enumerate(column):
                 self.board[b_index][index].setStyleSheet("font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; ")
                 self.board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
@@ -165,6 +167,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def check_sym_num(self, sym_num, player)->bool:
         if sym_num == int(self.field_size):
+            self.total_budget = int(self.lb_Player2_budget.text().strip("Budget: ")) + int(self.lb_Player1_budget.text().strip("Budget: "))
             self.lb_outputField.setStyleSheet("color: red")
             if player.name == self.lb_Player1_name.text().strip("Name: "):
                 player.budget = int(self.lb_Player1_budget.text().strip("Budget: ")) + self.sl_player2.value()
@@ -195,19 +198,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lb_outputField.setText((player.name)+str(" has won") )
             self.cleanup()
             self.playing = False
+            print(self.total_budget)
+            if self.total_budget != int(self.lb_Player2_budget.text().strip("Budget: ")) + int(self.lb_Player1_budget.text().strip("Budget: ")):
+                self.lb_outputField.setText("irgendwas is schief gelaufen, spieler addieren nicht auf")
         return sym_num == int(len(self.board))
+
     
     def cleanup(self):
         for row in range(self.field_size):
             for column in range(self.field_size):
                 self.board[row][column].setText(" ")
         self.sl_player1.setValue(0)
-        self.sl_player2.setValue(0)
-        
-
-        
-    def output(self, prompt):
-        print(prompt)   
+        self.sl_player2.setValue(0)  
         
     def evaluate(self):
         self.field_size = int(len(self.board))

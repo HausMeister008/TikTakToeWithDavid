@@ -176,20 +176,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.fr_game_board)
 
-        self.fr_css_modes = QFrame(self.fr_mainContent)
-        self.fr_css_modes.setObjectName(u"fr_css_modes")
-        self.fr_css_modes.setMinimumSize(QSize(0, 50))
-        self.fr_css_modes.setMaximumSize(QSize(16777215, 50))
-        self.qss_change = QHBoxLayout(self.fr_css_modes)
-        self.qss_change.setObjectName(u"qss_change")
-        self.btn_qss_toggle = QPushButton(self.fr_css_modes)
-        self.btn_qss_toggle.setObjectName(u"btn_qss_toggle")
-
-        self.qss_change.addWidget(self.btn_qss_toggle)
-
-
-        self.verticalLayout_3.addWidget(self.fr_css_modes)
-
         self.lb_outputField = QLabel(self.fr_mainContent)
         self.lb_outputField.setObjectName(u"lb_outputField")
         sizePolicy.setHeightForWidth(self.lb_outputField.sizePolicy().hasHeightForWidth())
@@ -199,6 +185,11 @@ class Ui_MainWindow(object):
         self.lb_outputField.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_3.addWidget(self.lb_outputField)
+
+        self.btn_qss_toggle = QPushButton(self.fr_mainContent)
+        self.btn_qss_toggle.setObjectName(u"btn_qss_toggle")
+
+        self.verticalLayout_3.addWidget(self.btn_qss_toggle)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -211,7 +202,7 @@ class Ui_MainWindow(object):
         self.sl_field_size.setSizePolicy(sizePolicy3)
         self.sl_field_size.setMinimumSize(QSize(0, 20))
         self.sl_field_size.setMaximumSize(QSize(16777215, 75))
-        self.sl_field_size.setMaximum(18)
+        self.sl_field_size.setMaximum(13)
         self.sl_field_size.setSingleStep(1)
         self.sl_field_size.setPageStep(1)
         self.sl_field_size.setValue(1)
@@ -349,8 +340,8 @@ class Ui_MainWindow(object):
         self.lb_Player1_icon.setText(QCoreApplication.translate("MainWindow", u"Icon:", None))
         self.btn_Create_Player_1.setText(QCoreApplication.translate("MainWindow", u"Create Player", None))
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
-        self.btn_qss_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle Mode", None))
         self.lb_outputField.setText("")
+        self.btn_qss_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle Mode", None))
         self.btn_render.setText(QCoreApplication.translate("MainWindow", u"Render", None))
         self.lb_Player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.lb_Player2_name.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
