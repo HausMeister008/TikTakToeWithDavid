@@ -58,7 +58,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sl_player1.setMinimum(0)
         self.sl_player2.setMinimum(0)
         self.total_budget = 0
-        self.set_player(1, 100, "David", "I")
+        self.set_player(1, 100, "David", "X")
         self.set_player(2, 100, "Leon", "O")
         self.icon = "X"
         self.btn_render.clicked.connect(self.redraw)
@@ -67,6 +67,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.containing_frame = None
         self.sl_player1.valueChanged.connect(lambda: self.change_slider(1))
         self.sl_player2.valueChanged.connect(lambda: self.change_slider(2))
+        self.sl_field_size.valueChanged.connect(self.redraw)
         self.lp_player1_sl_value.setText("Du musst noch setzen")
         self.lp_player2_sl_value.setText("Du musst noch setzen")
         
@@ -105,12 +106,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.containing_frame = QFrame(self.fr_game_board)
         self.containing_frame.setStyleSheet("background: #00161e; min-height: 1px; min-width: 1px; ")
         self.containing_layout = QHBoxLayout(self.containing_frame)
-        spacing = (10^(self.field_size * self.field_size))
-        self.containing_layout.setSpacing(spacing)
+        self.containing_layout.setSpacing(0)
         for b_index, column in enumerate(board):
             self.new_frame = QFrame(self.containing_frame)
             self.new_layout = QVBoxLayout(self.new_frame)
-            self.new_layout.setSpacing(spacing * 4)
+            margins = 10
+            self.new_layout.setSpacing(margins)
+            self.new_layout.setContentsMargins(margins/2,0,margins/2,0)
             for index, button in enumerate(column):
                 self.board[b_index][index].setStyleSheet("font-size: 40px; font: arial; color: yellow; background: rgb(17,41,47); min-height: 1px;min-width: 1px; border: 0; margin: 0; padding: 0; border-radius: 5px; ")
                 self.board[b_index][index].setCursor(QCursor(Qt.PointingHandCursor))
@@ -200,7 +202,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lb_outputField.setText((player.name)+str(" has won") )
             self.cleanup()
             self.playing = False
-            print(self.total_budget)
             if self.total_budget != int(self.lb_Player2_budget.text().strip("Budget: ")) + int(self.lb_Player1_budget.text().strip("Budget: ")):
                 self.lb_outputField.setText("irgendwas is schief gelaufen, spieler addieren nicht auf")
         return sym_num == int(len(self.board))
@@ -277,6 +278,7 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_playerName.textEdited[str].connect(self.unlock)
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
+        self.btn_exitNewPlayer.clicked.connect(self.destroy)
 
         
     def unlock(self):
