@@ -70,8 +70,8 @@ class GuiGameboard(Gameboard):
     def get_player(self, id_):
         return self.mainWindow.get_player(id_) if (id_ or str(id_).isdigit()) else self.mainWindow.get_player()
 
-    def create_player(self, addplayerWindow, id_):
-        self.mainWindow.create_new_player(addplayerWindow, id_)
+    def create_player(self, id_):
+        self.mainWindow.create_new_player(id_)
 
     def redraw(selfy):
         
