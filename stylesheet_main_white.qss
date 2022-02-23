@@ -52,16 +52,22 @@ QSlider{
     color: yellow;
 }
 QSlider::handle:horizontal{
-    background: gray;
+    background: black;
     
     margin-right: -10px;
     margin-left: -10px;
 }
 QSlider::sub-page:horizontal{    
-    background: rgb(10,10,10);
+    background: #777777;
 }
 QSlider::groove:horizontal{
-    background: rgb(20,20,20);
+    background: #aaa;
+}
+QSlider::sub-page:horizontal#sl_player2{    
+    background: #aaa;
+}
+QSlider::groove:horizontal#sl_player2{
+    background: #777777;
 }
 
 QSlider::handle#sl_player2:hover{
@@ -72,6 +78,11 @@ QSlider::handle#sl_player1:hover{
     background: #7700aa;
     height: 23px;
 }
+QSlider::#sl_field_size{
+    background: #00ff00;
+    height: 23px;
+}
+
 QLabel#lb_outputField{
     color: black;
 }

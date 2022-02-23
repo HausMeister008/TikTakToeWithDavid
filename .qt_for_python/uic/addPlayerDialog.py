@@ -148,6 +148,10 @@ class Ui_Dialog(object):
 
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
 
+        QWidget.setTabOrder(self.btn_commitNewPlayer, self.lnedit_icon)
+        QWidget.setTabOrder(self.lnedit_icon, self.lnedit_budget)
+        QWidget.setTabOrder(self.lnedit_budget, self.btn_exitNewPlayer)
+        QWidget.setTabOrder(self.btn_exitNewPlayer, self.lnedit_playerName)
 
         self.retranslateUi(Dialog)
 

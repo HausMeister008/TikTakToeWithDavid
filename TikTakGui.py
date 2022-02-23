@@ -16,6 +16,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QDialog,
     QInputDialog,
+    QGraphicsDropShadowEffect
     # QAlignCenter,
 )
 from PySide6.QtGui import QCursor
@@ -26,9 +27,6 @@ from Gameboard import Gameboard
 
 from uiFiles.ui_mainWindow import Ui_MainWindow
 from uiFiles.ui_addPlayerDialog import Ui_Dialog
-from time import sleep
-
-
 toggle = 0
 
 
@@ -61,7 +59,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.set_player(1, 100, "David", "X")
         self.set_player(2, 100, "Leon", "O")
         self.icon = "X"
-        self.btn_render.clicked.connect(self.redraw)
         self.field_size = 3
         self.icon_counter = 0
         self.containing_frame = None
@@ -70,13 +67,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.sl_field_size.valueChanged.connect(self.redraw)
         self.lp_player1_sl_value.setText("Du musst noch setzen")
         self.lp_player2_sl_value.setText("Du musst noch setzen")
+        self.sl_field_size.setMinimum(3)
+        self.sl_field_size.setSingleStep(2)
+        self.sl_field_size.setTickInterval(2)
+        # self.sl_field_size.set
+        
         
 
     def redraw(self):
-        # if  (self.sl_field_size.value()% 2):
-        #     self.field_size = self.sl_field_size.value()
-        # else: self.field_size = self.sl_field_size.value() + 1
-        self.field_size = self.sl_field_size.value() * 2 + 1
+        """
+        calculating fieldsize and adapting positions
+        -> then drawing
+        """
+        self.field_size = self.sl_field_size.value()      
+        self.field_size = self.field_size + 1 if not self.field_size%2 else self.field_size
+        self.sl_field_size.setValue(self.field_size)
 
         positions = {i+1:' ' for i in range(self.field_size*self.field_size)}
         self.board = [[] for i in range(self.field_size)] # für 3x3 -> [[], [], []]
@@ -95,8 +100,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             for b_index, column in enumerate(board):
                 for index, button in enumerate(column):
                     self.gridLayout_2.removeWidget(self.containing_frame)
+            self.containing_frame.deleteLater()
             
 
+        # self.fr_game_board.
         for column in range(self.field_size):
             r = []
             for row in range(self.field_size):
@@ -161,11 +168,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.icon_player_one = self.lb_Player1_icon.text()
                 self.icon_player_two = self.lb_Player2_icon.text()
                 if b.text() == " ":
-                   if self.icon_storage == self.lb_Player1_icon.text():
+                    if self.icon_storage == self.lb_Player1_icon.text():
                        self.icon_storage = self.lb_Player2_icon.text()
-                   else:
+                    else:
                         self.icon_storage = self.lb_Player1_icon.text()
-                   b.setText(self.icon_storage.replace("Icon: ", ""))
+                    b.setText(self.icon_storage.replace("Icon: ", ""))
+                    shadow = QGraphicsDropShadowEffect()
+
+                    # setting blur radius (optional step)
+                    shadow.setBlurRadius(15)
+
+                    # adding shadow to the label
+                    b.setGraphicsEffect(shadow)
                 self.evaluate()    
                 self.icon_counter +=1
 
@@ -278,7 +292,7 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
         self.lnedit_playerName.textEdited[str].connect(self.unlock)
         self.lnedit_icon.textEdited[str].connect(self.unlock)
         self.lnedit_budget.textEdited[str].connect(self.unlock)
-        self.btn_exitNewPlayer.clicked.connect(self.destroy)
+        self.btn_exitNewPlayer.clicked.connect(self.exit_add_player)
 
         
     def unlock(self):
@@ -292,6 +306,9 @@ class AddPlayerWindow(QDialog, Ui_Dialog):
     #     if player_id in range(1, 3):
     #         self.show()
 
+    def exit_add_player(self):
+        self.accept()
+        
     def commit_player(self):
         budget = self.lnedit_budget.text()
         budget = int(budget) if budget.isdigit() else 0
@@ -309,5 +326,6 @@ if __name__ == "__main__":
     frm_main = MainWindow()
     frm_addPlayer = AddPlayerWindow(parentWindow=frm_main)
     frm_main.qss_change()
+    frm_main.redraw()
     frm_main.show()
     QApplication.exec()

@@ -200,8 +200,8 @@ class Ui_MainWindow(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.sl_field_size.sizePolicy().hasHeightForWidth())
         self.sl_field_size.setSizePolicy(sizePolicy3)
-        self.sl_field_size.setMinimumSize(QSize(0, 20))
-        self.sl_field_size.setMaximumSize(QSize(16777215, 75))
+        self.sl_field_size.setMinimumSize(QSize(0, 60))
+        self.sl_field_size.setMaximumSize(QSize(16777215, 60))
         self.sl_field_size.setMaximum(13)
         self.sl_field_size.setSingleStep(1)
         self.sl_field_size.setPageStep(1)
@@ -209,18 +209,6 @@ class Ui_MainWindow(object):
         self.sl_field_size.setOrientation(Qt.Horizontal)
 
         self.horizontalLayout_2.addWidget(self.sl_field_size)
-
-        self.btn_render = QPushButton(self.fr_mainContent)
-        self.btn_render.setObjectName(u"btn_render")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.btn_render.sizePolicy().hasHeightForWidth())
-        self.btn_render.setSizePolicy(sizePolicy4)
-        self.btn_render.setMinimumSize(QSize(0, 75))
-        self.btn_render.setMaximumSize(QSize(16777215, 75))
-
-        self.horizontalLayout_2.addWidget(self.btn_render)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
@@ -342,7 +330,6 @@ class Ui_MainWindow(object):
         self.lb_mainHeadline.setText(QCoreApplication.translate("MainWindow", u"TicTacToe", None))
         self.lb_outputField.setText("")
         self.btn_qss_toggle.setText(QCoreApplication.translate("MainWindow", u"Toggle Mode", None))
-        self.btn_render.setText(QCoreApplication.translate("MainWindow", u"Render", None))
         self.lb_Player_2_headline.setText(QCoreApplication.translate("MainWindow", u"Player 2", None))
         self.lb_Player2_name.setText(QCoreApplication.translate("MainWindow", u"Name: ", None))
         self.lb_Player2_budget.setText(QCoreApplication.translate("MainWindow", u"Budget:", None))

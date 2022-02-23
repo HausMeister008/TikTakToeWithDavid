@@ -298,6 +298,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>btn_commitNewPlayer</tabstop>
+  <tabstop>lnedit_icon</tabstop>
+  <tabstop>lnedit_budget</tabstop>
+  <tabstop>btn_exitNewPlayer</tabstop>
+  <tabstop>lnedit_playerName</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

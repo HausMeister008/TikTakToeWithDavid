@@ -1,9 +1,7 @@
 # next: getting main window to send return message to the gameboard after creating a new player 
 
 # from tqdm import main
-from csv import field_size_limit
-from Player import * 
-from Gameboard import *
+# from Player import * 
 from TikTakGui import *
 from uiFiles.ui_mainWindow import *
 import math
@@ -38,9 +36,9 @@ class GuiGameboard(Gameboard):
         # super(MainWindow).__init__()
         self.mainWindow = mainWindow
         self.playerWindow = playerWindow
-        self.ui_field_size = field_size_limit
         self.field_size = mainWindow.sl_field_size.value()
         self.players = []
+
         for p in range(2):
             chosen_icons = []
             for player in self.players:
